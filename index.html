@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>huevos jb · PDV en la nube</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        * { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .save-indicator { animation: fadeOut 2.2s forwards; }
+        @keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        .btn-side-active { background-color: #fef3c7 !important; color: #b45309 !important; }
+        .btn-side-inactive { color: #94a3b8; }
+        .btn-side-inactive:hover { background-color: #fffbeb; color: #92400e; }
+        .tomato-card { background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%); border: 2px solid #ff6347 !important; }
+        .btn-cobrar { background-color: #16a34a; color: white; font-weight: bold; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; transition: all 0.2s; }
+        .btn-cobrar:hover { background-color: #15803d; transform: scale(1.02); }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen">
+
+    <div id="save-log" class="fixed bottom-5 right-5 z-50 pointer-events-none flex flex-col gap-2"></div>
+
+    <!-- Login Firebase -->
+    <div id="login-firebase" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-2xl w-96 text-center shadow-xl">
+            <div class="w-16 h-16 bg-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+            <h1 class="text-2xl font-black">huevos jb</h1>
+            <p class="text-slate-500 text-sm">Acceso sincronizado en la nube</p>
+            <input type="email" id="email-login" placeholder="Correo electrónico" class="w-full mt-4 p-3 bg-slate-100 rounded-xl">
+            <input type="password" id="password-login" placeholder="Contraseña" class="w-full mt-2 p-3 bg-slate-100 rounded-xl">
+            <button onclick="signIn()" class="w-full mt-4 bg-amber-700 text-white font-bold py-3 rounded-xl">Ingresar</button>
+        </div>
+    </div>
+
+    <!-- App Principal -->
+    <div id="main-app" class="hidden flex flex-col h-screen">
+        <header class="bg-white/90 border-b px-6 py-3 flex justify-between items-center shadow-sm">
+            <div class="flex items-center gap-2"><span class="bg-amber-700 text-white px-2 py-1 rounded-lg text-sm font-bold">JB</span><h2 class="font-black">huevos jb · sincronizado en la nube</h2></div>
+            <div><span id="clock" class="text-sm font-mono"></span><button onclick="logout()" class="ml-4 text-red-500 text-xs font-bold">Cerrar Sesión</button></div>
+        </header>
+        <div class="flex flex-1 overflow-hidden">
+            <aside class="w-20 bg-white/80 border-r flex flex-col items-center py-4 gap-4">
+                <button onclick="showTab('ventas')" id="btn-ventas" class="btn-side-active p-3 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></button>
+                <button onclick="showTab('inventario')" id="btn-inventario" class="btn-side-inactive p-3 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></button>
+                <button onclick="showTab('clientes')" id="btn-clientes" class="btn-side-inactive p-3 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button>
+                <button onclick="showTab('reportes')" id="btn-reportes" class="btn-side-inactive p-3 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></button>
+            </aside>
+            <main class="flex-1 overflow-y-auto p-5 md:p-8 custom-scroll" id="main-content"></main>
+        </div>
+    </div>
+
+    <script>
+        // ========== CONFIGURACIÓN DE FIREBASE (TUS CREDENCIALES) ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyDarJd3bXk8Z9WAZ3MqhJTtEK7QRNAnyj8",
+            authDomain: "pdv-huevos-jb.firebaseapp.com",
+            databaseURL: "https://pdv-huevos-jb-default-rtdb.firebaseio.com", // Agregada (formato estándar)
+            projectId: "pdv-huevos-jb",
+            storageBucket: "pdv-huevos-jb.firebasestorage.app",
+            messagingSenderId: "953363481387",
+            appId: "1:953363481387:web:2710b5feadb3a7d47b7b6e"
+        };
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const auth = firebase.auth();
+
+        // Referencias a las rutas
+        const productsRef = database.ref('products');
+        const sellersRef = database.ref('sellers');
+        const clientsRef = database.ref('clients');
+        const salesRef = database.ref('sales');
+        const closuresRef = database.ref('closures');
+
+        // Variables globales
+        let products = [], sellers = [], clients = [], sales = [], closures = [];
+        let cart = [];
+        let currentTab = 'ventas';
+        let editProductId = null, currentEditingSaleId = null, editSaleItems = [], editingClientId = null;
+
+        function showToast(msg, bg = 'green') {
+            const log = document.getElementById('save-log');
+            const toast = document.createElement('div');
+            toast.className = `save-indicator bg-${bg}-600 text-white text-xs px-3 py-1 rounded-full mb-1`;
+            toast.innerText = msg;
+            log.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        async function loadDataFromFirebase() {
+            showToast("Cargando datos...", "blue");
+            const [prodSnap, sellSnap, cliSnap, salesSnap, closSnap] = await Promise.all([
+                productsRef.once('value'), sellersRef.once('value'), clientsRef.once('value'),
+                salesRef.once('value'), closuresRef.once('value')
+            ]);
+            products = prodSnap.val() || [];
+            sellers = sellSnap.val() || ["ADMIN"];
+            clients = cliSnap.val() || [{ id: 1, name: "Consumidor final", address: "", phone: "", isDefault: true }];
+            sales = salesSnap.val() || [];
+            closures = closSnap.val() || [];
+            if (products.length === 0) {
+                products = [
+                    { id: 1001, name: "🥚 Huevo Mediano", price: 0.12, cost: 0.09, stock: 500, isBase: true },
+                    { id: 1002, name: "🥚 Huevo Grande", price: 0.1267, cost: 0.10, stock: 300, isBase: true },
+                    { id: 1003, name: "🍳 8 Huevos Medianos (Promo $1)", price: 1.00, cost: 0.72, stock: 0, isPromo: true, linkedProductId: 1001, linkedQty: 8 },
+                    { id: 1004, name: "📦 Cubeta 30 Huevos Medianos", price: 3.60, cost: 2.70, stock: 0, isPromo: true, linkedProductId: 1001, linkedQty: 30 },
+                    { id: 1005, name: "📦 Cubeta 30 Huevos Grandes", price: 3.80, cost: 3.00, stock: 0, isPromo: true, linkedProductId: 1002, linkedQty: 30 }
+                ];
+                await syncAll();
+            }
+            showToast("Datos sincronizados");
+            renderCurrentView();
+        }
+
+        async function syncAll() {
+            await productsRef.set(products);
+            await sellersRef.set(sellers);
+            await clientsRef.set(clients);
+            await salesRef.set(sales);
+            await closuresRef.set(closures);
+            showToast("✅ Datos guardados en la nube");
+        }
+
+        async function signIn() {
+            const email = document.getElementById('email-login').value;
+            const password = document.getElementById('password-login').value;
+            if (!email || !password) { alert("Ingresa correo y contraseña"); return; }
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                document.getElementById('login-firebase').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                await loadDataFromFirebase();
+                startClock();
+            } catch (error) {
+                alert("Error de autenticación: " + error.message);
+            }
+        }
+        function logout() { auth.signOut().then(() => location.reload()); }
+        function startClock() { setInterval(() => { const c = document.getElementById('clock'); if(c) c.innerText = new Date().toLocaleTimeString(); }, 1000); }
+
+        // ========== FUNCIONES DE LA APLICACIÓN (mismo código que antes) ==========
+        function renderCurrentView() {
+            document.querySelectorAll('#btn-ventas, #btn-inventario, #btn-clientes, #btn-reportes').forEach(btn => btn.classList.remove('btn-side-active', 'bg-amber-100', 'text-amber-700'));
+            if (currentTab === 'ventas') { document.getElementById('btn-ventas').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700'); renderVentas(); }
+            else if (currentTab === 'inventario') { document.getElementById('btn-inventario').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700'); renderInventario(); }
+            else if (currentTab === 'clientes') { document.getElementById('btn-clientes').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700'); renderClientes(); }
+            else if (currentTab === 'reportes') { document.getElementById('btn-reportes').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700'); renderReportes(); }
+        }
+        window.showTab = function(tab) { currentTab = tab; renderCurrentView(); };
+
+        // ---------- VENTAS ----------
+        function renderVentas() {
+            const html = `
+                <div class="grid lg:grid-cols-12 gap-5">
+                    <div class="lg:col-span-8"><div class="flex justify-between mb-3"><h3 class="text-xl font-bold">🥚 Productos (cubetas y promo)</h3><input type="text" id="search-prod" placeholder="Buscar..." class="px-3 py-2 rounded-xl border bg-white"></div><div id="productos-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div></div>
+                    <div class="lg:col-span-4"><div class="bg-white p-4 rounded-2xl shadow sticky top-4"><div><label class="text-xs font-bold">Cliente</label><select id="client-select" class="w-full p-2 bg-slate-50 rounded-lg mb-2"></select><button class="text-xs text-amber-600" onclick="openClientModal()">+ Nuevo</button></div>
+                    <div class="grid grid-cols-2 gap-2 mt-2"><div><label>Vendedor</label><select id="seller-select" class="w-full p-2 bg-slate-50 rounded-lg"></select></div><div><label>Fecha</label><input type="date" id="sale-date" class="w-full p-2 bg-slate-50 rounded-lg"></div></div>
+                    <div class="mt-2"><label>Pago</label><select id="payment-method" class="w-full p-2 bg-slate-50 rounded-lg"><option value="efectivo">Efectivo</option><option value="fiado">Fiado</option></select></div>
+                    <div class="border-t my-3"></div><div class="flex justify-between"><span class="font-bold">Carrito</span><button onclick="clearCart()" class="text-red-500 text-xs">Vaciar</button></div>
+                    <div id="cart-list" class="min-h-[200px] max-h-[300px] overflow-y-auto space-y-2 my-2"></div>
+                    <div class="flex justify-between font-bold text-lg"><span>Total</span><span id="cart-total">$0.00</span></div>
+                    <button onclick="processSale()" class="w-full mt-3 bg-amber-700 text-white font-bold py-3 rounded-xl">FINALIZAR VENTA</button></div></div>
+                </div>`;
+            document.getElementById('main-content').innerHTML = html;
+            renderProductGrid();
+            renderCart();
+            fillSelects();
+            document.getElementById('sale-date').valueAsDate = new Date();
+            document.getElementById('search-prod').addEventListener('input', (e) => renderProductGrid(e.target.value));
+        }
+        function renderProductGrid(filter = '') {
+            const grid = document.getElementById('productos-grid');
+            if (!grid) return;
+            const data = products.filter(p => !p.isBase && p.name.toLowerCase().includes(filter.toLowerCase()));
+            grid.innerHTML = data.map(p => `
+                <div class="bg-white p-3 rounded-xl shadow-sm border cursor-pointer hover:border-amber-400 ${p.isPromo && p.linkedQty === 30 ? 'tomato-card' : ''}" onclick="addToCart(${p.id})">
+                    <div class="font-bold">${p.name}</div>
+                    <div class="flex justify-between mt-1"><span class="text-amber-700 font-bold">$${p.price.toFixed(2)}</span><span class="text-xs text-slate-400">${p.isPromo ? `usa ${p.linkedQty} unidades` : ''}</span></div>
+                </div>
+            `).join('');
+        }
+        window.addToCart = function(id) {
+            const prod = products.find(p => p.id === id);
+            if (!prod) return;
+            if (prod.isPromo && prod.linkedProductId) {
+                const linked = products.find(p => p.id === prod.linkedProductId);
+                if (!linked || linked.stock < prod.linkedQty) { alert("Stock base insuficiente"); return; }
+            }
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                if (prod.isPromo && prod.linkedProductId) {
+                    const linked = products.find(p => p.id === prod.linkedProductId);
+                    if (linked && (existing.qty + 1) * prod.linkedQty > linked.stock) { alert("Stock base insuficiente"); return; }
+                }
+                existing.qty++;
+            } else cart.push({ id, name: prod.name, price: prod.price, qty: 1, isPromo: prod.isPromo, linkedProductId: prod.linkedProductId, linkedQty: prod.linkedQty });
+            renderCart();
+        };
+        function renderCart() {
+            const container = document.getElementById('cart-list');
+            if (!container) return;
+            if (cart.length === 0) { container.innerHTML = '<div class="text-center text-slate-400 py-5">Carrito vacío</div>'; document.getElementById('cart-total').innerText = '$0.00'; return; }
+            let total = 0;
+            container.innerHTML = cart.map((item, idx) => {
+                total += item.price * item.qty;
+                return `<div class="flex justify-between bg-slate-50 p-2 rounded-lg"><div><span class="font-bold">${item.name}</span><span class="text-xs ml-2">x${item.qty}</span><div class="text-xs">$${item.price.toFixed(2)} c/u</div></div><div class="flex gap-1"><button onclick="updateQty(${idx},-1)" class="w-6 h-6 bg-white rounded">-</button><span class="w-6 text-center">${item.qty}</span><button onclick="updateQty(${idx},1)" class="w-6 h-6 bg-white rounded">+</button></div></div>`;
+            }).join('');
+            document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
+        }
+        window.updateQty = function(idx, delta) {
+            const item = cart[idx];
+            if (!item) return;
+            const prod = products.find(p => p.id === item.id);
+            let newQty = item.qty + delta;
+            if (newQty <= 0) cart.splice(idx, 1);
+            else {
+                if (prod.isPromo && prod.linkedProductId) {
+                    const linked = products.find(p => p.id === prod.linkedProductId);
+                    if (linked && newQty * prod.linkedQty > linked.stock) { alert("Stock base insuficiente"); return; }
+                }
+                item.qty = newQty;
+            }
+            renderCart();
+        };
+        window.clearCart = () => { if (cart.length && confirm("Vaciar carrito?")) { cart = []; renderCart(); } };
+        async function processSale() {
+            if (cart.length === 0) return alert("Carrito vacío");
+            const seller = document.getElementById('seller-select').value;
+            const clientId = parseInt(document.getElementById('client-select').value);
+            const client = clients.find(c => c.id === clientId)?.name || "Consumidor final";
+            const date = document.getElementById('sale-date').value;
+            const payment = document.getElementById('payment-method').value;
+            if (!date) return alert("Fecha requerida");
+            for (let item of cart) {
+                const prod = products.find(p => p.id === item.id);
+                if (!prod) return alert(`Producto ${item.name} no existe`);
+                if (prod.isPromo && prod.linkedProductId) {
+                    const linked = products.find(p => p.id === prod.linkedProductId);
+                    if (!linked || linked.stock < item.qty * prod.linkedQty) return alert(`Stock base insuficiente para ${item.name}`);
+                }
+            }
+            const itemsDetail = [];
+            let total = 0;
+            for (let item of cart) {
+                const prod = products.find(p => p.id === item.id);
+                total += item.price * item.qty;
+                if (prod.isPromo && prod.linkedProductId) {
+                    const linked = products.find(p => p.id === prod.linkedProductId);
+                    if (linked) linked.stock -= item.qty * prod.linkedQty;
+                }
+                itemsDetail.push({ productId: item.id, qty: item.qty, name: item.name, price: item.price, cost: prod.cost });
+            }
+            const newSale = { id: Date.now(), date, client, seller, total, items: cart.map(i => `${i.qty}x ${i.name}`).join(", "), itemsDetail, paymentMethod: payment, paid: payment === 'efectivo' };
+            sales.unshift(newSale);
+            cart = [];
+            await syncAll();
+            renderCart();
+            renderProductGrid();
+            if (currentTab === 'reportes') renderReportes();
+            alert("✅ Venta registrada");
+        }
+        function fillSelects() {
+            const clientSel = document.getElementById('client-select');
+            if (clientSel) clientSel.innerHTML = clients.map(c => `<option value="${c.id}">${c.name}${c.isDefault ? ' (Consumidor final)' : ''}</option>`).join('');
+            const sellerSel = document.getElementById('seller-select');
+            if (sellerSel) sellerSel.innerHTML = sellers.map(s => `<option>${s}</option>`).join('');
+        }
+
+        // ---------- INVENTARIO ----------
+        function renderInventario() {
+            const html = `
+                <div class="max-w-5xl mx-auto"><div class="flex justify-between items-center mb-4"><h3 class="text-2xl font-bold">📋 Inventario</h3><button onclick="openProductModal()" class="bg-amber-700 text-white px-4 py-2 rounded-xl">+ Producto</button></div>
+                <div class="bg-white p-4 rounded-2xl shadow mb-6"><h4 class="font-bold">➕ Nueva categoría (unidad + cubeta 30)</h4><div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2"><input type="text" id="newCatName" placeholder="Nombre ej. Gigante" class="p-2 bg-slate-50 rounded"><input type="number" id="newCatPrice" placeholder="Precio unidad" class="p-2 bg-slate-50 rounded"><input type="number" id="newCatCost" placeholder="Costo unidad" class="p-2 bg-slate-50 rounded"><input type="number" id="newCatBox" placeholder="Precio cubeta 30" class="p-2 bg-slate-50 rounded"></div><button onclick="addNewCategory()" class="mt-2 bg-green-600 text-white px-4 py-1 rounded-lg text-sm">Crear categoría</button></div>
+                <div class="overflow-x-auto bg-white rounded-2xl shadow"><table class="w-full text-sm"><thead class="bg-amber-50"><tr><th class="p-3 text-left">Producto</th><th>Precio</th><th>Costo</th><th>Ganancia</th><th>Stock</th><th></th></tr></thead><tbody id="inv-table"></tbody></table></div>
+                <div class="mt-6 bg-white p-4 rounded-2xl"><h4 class="font-bold">👥 Vendedores</h4><div class="flex gap-2 my-2"><input type="text" id="new-seller" class="flex-1 p-2 bg-slate-50 rounded"><button onclick="addSeller()" class="bg-amber-700 text-white px-4 rounded">Añadir</button></div><div id="sellers-list" class="flex flex-wrap gap-2"></div></div></div>`;
+            document.getElementById('main-content').innerHTML = html;
+            renderInvTable();
+            renderSellersList();
+        }
+        function renderInvTable() {
+            const tbody = document.getElementById('inv-table');
+            if (!tbody) return;
+            tbody.innerHTML = products.map(p => `<tr class="border-b"><td class="p-3">${p.name}</td><td class="p-3 text-center">$${p.price.toFixed(2)}</td><td class="p-3 text-center">$${(p.cost || 0).toFixed(2)}</td><td class="p-3 text-center text-green-600">$${(p.price - (p.cost || 0)).toFixed(2)}</td><td class="p-3 text-center">${p.isBase ? p.stock : '—'}</td><td class="p-3 text-right"><button onclick="editProduct(${p.id})" class="text-blue-600 text-xs mr-2">✏️</button><button onclick="deleteProduct(${p.id})" class="text-red-500 text-xs">🗑️</button></td></tr>`).join('');
+        }
+        window.addNewCategory = async function() {
+            const name = document.getElementById('newCatName').value.trim();
+            const price = parseFloat(document.getElementById('newCatPrice').value);
+            const cost = parseFloat(document.getElementById('newCatCost').value) || 0;
+            const boxPrice = parseFloat(document.getElementById('newCatBox').value);
+            if (!name || isNaN(price) || isNaN(boxPrice)) return alert("Complete todos los campos");
+            const baseId = Date.now();
+            products.push({ id: baseId, name: `🥚 ${name} (unidad)`, price, cost, stock: 0, isBase: true });
+            products.push({ id: Date.now() + 1, name: `📦 Cubeta 30 ${name}`, price: boxPrice, cost: cost * 30, stock: 0, isPromo: true, linkedProductId: baseId, linkedQty: 30 });
+            await syncAll();
+            renderInvTable();
+            renderProductGrid();
+            showToast("Categoría agregada");
+        };
+        window.editProduct = async function(id) {
+            const p = products.find(p => p.id === id);
+            if (!p) return;
+            const newPrice = parseFloat(prompt("Nuevo precio venta:", p.price));
+            if (isNaN(newPrice)) return;
+            p.price = newPrice;
+            if (p.isBase) {
+                const newStock = parseInt(prompt("Nuevo stock:", p.stock));
+                if (!isNaN(newStock)) p.stock = newStock;
+                const newCost = parseFloat(prompt("Nuevo costo unitario:", p.cost));
+                if (!isNaN(newCost)) p.cost = newCost;
+            } else {
+                const newCost = parseFloat(prompt("Nuevo costo (para ganancia):", p.cost));
+                if (!isNaN(newCost)) p.cost = newCost;
+            }
+            await syncAll();
+            renderInvTable();
+            renderProductGrid();
+            showToast("Producto actualizado");
+        };
+        window.deleteProduct = async function(id) {
+            if (!confirm("¿Eliminar producto?")) return;
+            products = products.filter(p => p.id !== id);
+            cart = cart.filter(i => i.id !== id);
+            await syncAll();
+            renderInvTable();
+            renderProductGrid();
+            renderCart();
+        };
+        function renderSellersList() {
+            const div = document.getElementById('sellers-list');
+            if (!div) return;
+            div.innerHTML = sellers.map(s => `<div class="bg-slate-100 px-3 py-1 rounded-full flex items-center gap-2"><span>${s}</span><button onclick="removeSeller('${s}')" class="text-red-500 font-bold">×</button></div>`).join('');
+        }
+        window.addSeller = async function() {
+            const name = document.getElementById('new-seller').value.trim().toUpperCase();
+            if (!name) return;
+            if (sellers.includes(name)) return alert("Ya existe");
+            sellers.push(name);
+            await syncAll();
+            renderSellersList();
+            fillSelects();
+            document.getElementById('new-seller').value = '';
+        };
+        window.removeSeller = async function(name) {
+            if (sellers.length > 1) {
+                sellers = sellers.filter(s => s !== name);
+                await syncAll();
+                renderSellersList();
+                fillSelects();
+            } else alert("Al menos un vendedor");
+        };
+
+        // ---------- CLIENTES ----------
+        function renderClientes() {
+            const html = `<div class="max-w-3xl mx-auto"><div class="flex justify-between"><h3 class="text-2xl font-bold">📇 Clientes</h3><button onclick="openClientModal()" class="bg-amber-700 text-white px-4 py-2 rounded-xl">+ Cliente</button></div><div class="mt-4 bg-white rounded-2xl shadow overflow-hidden"><table class="w-full"><thead class="bg-amber-50"><tr><th class="p-3 text-left">Nombre</th><th>Dirección</th><th>Teléfono</th><th></th></tr></thead><tbody id="clients-table"></tbody></table></div></div>`;
+            document.getElementById('main-content').innerHTML = html;
+            renderClientsTable();
+        }
+        function renderClientsTable() {
+            const tbody = document.getElementById('clients-table');
+            if (!tbody) return;
+            tbody.innerHTML = clients.filter(c => !c.isDefault).map(c => `<tr class="border-b"><td class="p-3">${c.name}</td><td class="p-3">${c.address || '-'}</td><td class="p-3">${c.phone || '-'}</td><td class="text-right"><button onclick="editClient(${c.id})" class="text-blue-600 mr-2">✏️</button><button onclick="deleteClient(${c.id})" class="text-red-500">🗑️</button></td></tr>`).join('');
+        }
+        window.openClientModal = async function(id = null) {
+            const c = id ? clients.find(c => c.id === id) : null;
+            const name = prompt("Nombre del cliente", c?.name || "");
+            if (!name) return;
+            const address = prompt("Dirección", c?.address || "");
+            const phone = prompt("Teléfono", c?.phone || "");
+            if (c) { c.name = name; c.address = address; c.phone = phone; }
+            else clients.push({ id: Date.now(), name, address, phone });
+            await syncAll();
+            renderClientsTable();
+            fillSelects();
+            showToast("Cliente guardado");
+        };
+        window.editClient = (id) => openClientModal(id);
+        window.deleteClient = async function(id) {
+            clients = clients.filter(c => c.id !== id);
+            await syncAll();
+            renderClientsTable();
+            fillSelects();
+        };
+
+        // ---------- REPORTES ----------
+        function renderReportes() {
+            const totalSales = sales.reduce((a, s) => a + s.total, 0);
+            let profit = 0;
+            sales.forEach(s => { if (s.itemsDetail) s.itemsDetail.forEach(i => { profit += (i.price - (i.cost || 0)) * i.qty; }); });
+            const sellerStats = {};
+            sales.forEach(s => { sellerStats[s.seller] = (sellerStats[s.seller] || 0) + s.total; });
+            const topSeller = Object.entries(sellerStats).sort((a, b) => b[1] - a[1])[0];
+            const currentDebts = {};
+            sales.forEach(s => { if (s.paymentMethod === 'fiado' && !s.paid) currentDebts[s.client] = (currentDebts[s.client] || 0) + s.total; });
+            let archivedDebtsHtml = '';
+            closures.forEach(c => {
+                (c.archivedSales || []).forEach(sale => {
+                    if (sale.paymentMethod === 'fiado' && !sale.paid) {
+                        archivedDebtsHtml += `<div class="flex justify-between items-center bg-amber-50 p-2 rounded-lg"><div><span class="font-bold">${sale.client}</span> <span class="text-xs">${sale.date}</span><div class="text-sm">$${sale.total.toFixed(2)}</div></div><button onclick="openClosureAndFocusSale(${c.id}, ${sale.id})" class="btn-cobrar">💰 Cobrar ahora</button></div>`;
+                    }
+                });
+            });
+            if (!archivedDebtsHtml) archivedDebtsHtml = '<p class="text-slate-400">No hay deudas archivadas</p>';
+            const closuresHtml = closures.slice().reverse().map(c => `<div class="bg-amber-50 p-3 rounded-xl flex justify-between items-center"><div><span class="font-bold">${c.date}</span><div class="text-sm">Ventas: ${c.ventasCount} | Total: $${c.totalVentas.toFixed(2)} | Ganancia: $${c.ganancia.toFixed(2)}</div></div><button onclick="showClosureDetail(${c.id})" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs">Ver detalle</button></div>`).join('');
+            const salesHtml = sales.map(s => {
+                const isFiado = (s.paymentMethod === 'fiado' && !s.paid);
+                return `<div class="bg-white p-3 rounded-xl shadow-sm border flex flex-wrap justify-between items-center">
+                            <div><div class="text-xs text-slate-500">${s.date} | ${s.seller} | ${s.paymentMethod === 'efectivo' ? '💵 Efectivo' : '📝 Fiado'} | ${s.client}</div><div class="text-sm font-bold">${s.items}</div></div>
+                            <div class="text-right"><span class="text-xl font-black">$${s.total.toFixed(2)}</span>
+                            <div class="flex gap-2 mt-1 justify-end">${isFiado ? `<button onclick="markCurrentPaid(${s.id})" class="btn-cobrar">💰 Cobrar</button>` : ''}<button onclick="editCurrentSale(${s.id})" class="text-blue-600 text-xs">✏️</button><button onclick="deleteCurrentSale(${s.id})" class="text-red-500 text-xs">🗑️</button></div></div>
+                        </div>`;
+            }).join('') || '<div class="text-center text-slate-400 py-5">Sin ventas en período actual</div>';
+            const html = `
+                <div class="space-y-6 max-w-6xl mx-auto">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3"><div class="bg-white p-3 rounded-xl"><p class="text-xs">Total recaudado</p><p class="text-2xl font-black">$${totalSales.toFixed(2)}</p></div><div class="bg-white p-3 rounded-xl"><p class="text-xs">Ganancia neta</p><p class="text-2xl font-black text-green-700">$${profit.toFixed(2)}</p></div><div class="bg-white p-3 rounded-xl"><p class="text-xs">Ventas realizadas</p><p class="text-2xl font-black">${sales.length}</p></div><div class="bg-white p-3 rounded-xl"><p class="text-xs">Mejor vendedor</p><p class="text-lg font-black">${topSeller ? `${topSeller[0]} ($${topSeller[1].toFixed(2)})` : '--'}</p></div></div>
+                    <div class="bg-white p-4 rounded-xl"><h4 class="font-bold">💰 Deudas actuales</h4><div>${Object.entries(currentDebts).map(([c, m]) => `<div class="flex justify-between bg-red-50 p-2 rounded"><span>${c}</span><span>$${m.toFixed(2)}</span></div>`).join('') || '<p class="text-slate-400">Sin deudas</p>'}</div></div>
+                    <div class="bg-white p-4 rounded-xl"><h4 class="font-bold">📋 Deudas de cierres anteriores</h4><div class="space-y-2">${archivedDebtsHtml}</div></div>
+                    <div class="flex justify-end"><button onclick="closeCashRegister()" class="bg-red-600 text-white px-5 py-2 rounded-xl font-bold">🔒 Cerrar Caja y Archivar</button></div>
+                    <div class="bg-white p-4 rounded-xl"><h4 class="font-bold">📦 Cierres anteriores</h4><div class="space-y-2">${closuresHtml || '<p>No hay cierres</p>'}</div></div>
+                    <div class="bg-white p-4 rounded-xl"><h4 class="font-bold">📜 Ventas actuales</h4><div class="space-y-3">${salesHtml}</div></div>
+                </div>`;
+            document.getElementById('main-content').innerHTML = html;
+        }
+        window.markCurrentPaid = async function(saleId) {
+            const sale = sales.find(s => s.id === saleId);
+            if (sale && confirm(`Cobrar $${sale.total.toFixed(2)} a ${sale.client}?`)) { sale.paid = true; sale.paymentMethod = 'efectivo'; await syncAll(); renderReportes(); showToast("✅ Cobro registrado"); }
+        };
+        window.editCurrentSale = async function(saleId) {
+            const sale = sales.find(s => s.id === saleId);
+            if (!sale) return;
+            const newClient = prompt("Cliente", sale.client);
+            if (!newClient) return;
+            const newSeller = prompt("Vendedor", sale.seller);
+            if (!newSeller) return;
+            const newDate = prompt("Fecha (YYYY-MM-DD)", sale.date);
+            if (!newDate) return;
+            sale.client = newClient; sale.seller = newSeller; sale.date = newDate;
+            await syncAll(); renderReportes(); showToast("Venta editada");
+        };
+        window.deleteCurrentSale = async function(saleId) {
+            if (!confirm("Eliminar venta? Se restaurará el stock")) return;
+            const idx = sales.findIndex(s => s.id === saleId);
+            if (idx === -1) return;
+            const sale = sales[idx];
+            for (let det of sale.itemsDetail) {
+                const prod = products.find(p => p.id === det.productId);
+                if (!prod) continue;
+                if (prod.isBase) prod.stock += det.qty;
+                else if (prod.isPromo && prod.linkedProductId) {
+                    const linked = products.find(p => p.id === prod.linkedProductId);
+                    if (linked) linked.stock += det.qty * prod.linkedQty;
+                }
+            }
+            sales.splice(idx, 1);
+            await syncAll(); renderReportes(); renderProductGrid(); showToast("Venta eliminada y stock restaurado");
+        };
+        window.collectArchivedDebt = async function(closureId, saleId) {
+            const closure = closures.find(c => c.id === closureId);
+            if (!closure) return;
+            const sale = closure.archivedSales?.find(s => s.id === saleId);
+            if (sale && sale.paymentMethod === 'fiado' && !sale.paid) {
+                if (confirm(`Cobrar $${sale.total.toFixed(2)} a ${sale.client}?`)) {
+                    sale.paid = true;
+                    sale.paymentMethod = 'efectivo';
+                    await syncAll();
+                    renderReportes();
+                    showToast("✅ Cobro archivado registrado");
+                }
+            }
+        };
+        window.openClosureAndFocusSale = function(closureId, saleId) { showClosureDetail(closureId, saleId); };
+        window.showClosureDetail = function(closureId, highlightSaleId = null) {
+            const c = closures.find(c => c.id === closureId);
+            if (!c) return;
+            const archived = c.archivedSales || [];
+            const totalDebt = archived.filter(s => s.paymentMethod === 'fiado' && !s.paid).reduce((a, s) => a + s.total, 0);
+            const salesHtml = archived.map(s => `<div class="border-b p-2 flex justify-between"><div><span class="text-xs">${s.date} | ${s.seller}</span><div>${s.items}</div></div><div class="text-right"><span class="font-bold">$${s.total.toFixed(2)}</span><br>${s.paymentMethod === 'fiado' && !s.paid ? `<button onclick="collectArchivedDebt(${c.id}, ${s.id})" class="btn-cobrar mt-1">Cobrar</button>` : (s.paid ? '✅ Pagado' : '')}</div></div>`).join('');
+            alert(`📦 Cierre: ${c.date}\nTotal ventas: $${c.totalVentas.toFixed(2)}\nGanancia: $${c.ganancia.toFixed(2)}\nDeudas pendientes: $${totalDebt.toFixed(2)}\n\nDetalle:\n${salesHtml}`);
+        };
+        window.closeCashRegister = async function() {
+            if (sales.length === 0) return alert("No hay ventas para archivar");
+            if (!confirm("Archivar período actual? Las ventas pasarán a cierres anteriores y se reiniciarán.")) return;
+            const totalVentas = sales.reduce((a, s) => a + s.total, 0);
+            let ganancia = 0;
+            sales.forEach(s => { s.itemsDetail?.forEach(i => { ganancia += (i.price - (i.cost || 0)) * i.qty; }); });
+            const archivedSales = JSON.parse(JSON.stringify(sales));
+            closures.push({ id: Date.now(), date: new Date().toLocaleString(), totalVentas, ganancia, ventasCount: sales.length, archivedSales });
+            sales = [];
+            await syncAll();
+            renderReportes();
+            renderProductGrid();
+            showToast("Período archivado");
+        };
+    </script>
+</body>
+</html>
