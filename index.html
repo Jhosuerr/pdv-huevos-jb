@@ -34,7 +34,9 @@
     <!-- Login Firebase -->
     <div id="login-firebase" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
         <div class="bg-white p-6 rounded-2xl w-96 text-center shadow-xl">
-            <div class="w-16 h-16 bg-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+            <div class="w-16 h-16 bg-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
             <h1 class="text-2xl font-black">huevos jb</h1>
             <p class="text-slate-500 text-sm">Acceso sincronizado en la nube</p>
             <input type="email" id="email-login" placeholder="Correo electrónico" class="w-full mt-4 p-3 bg-slate-100 rounded-xl">
@@ -46,21 +48,35 @@
     <!-- App Principal -->
     <div id="main-app" class="hidden flex flex-col h-screen">
         <header class="bg-white/90 border-b px-6 py-3 flex justify-between items-center shadow-sm">
-            <div class="flex items-center gap-2"><span class="bg-amber-700 text-white px-2 py-1 rounded-lg text-sm font-bold">JB</span><h2 class="font-black">huevos jb · system/h2></div>
-            <div><span id="clock" class="text-sm font-mono"></span><button onclick="logout()" class="ml-4 text-red-500 text-xs font-bold">Cerrar Sesión</button></div>
+            <div class="flex items-center gap-2">
+                <span class="bg-amber-700 text-white px-2 py-1 rounded-lg text-sm font-bold">JB</span>
+                <h2 class="font-black">huevos jb · system</h2>
+            </div>
+            <div>
+                <span id="clock" class="text-sm font-mono"></span>
+                <button onclick="logout()" class="ml-4 text-red-500 text-xs font-bold">Cerrar Sesión</button>
+            </div>
         </header>
         <div class="flex flex-1 overflow-hidden">
             <aside class="w-20 bg-white/80 border-r flex flex-col items-center py-4 gap-4">
-                <button onclick="showTab('ventas')" id="btn-ventas" class="btn-side-active p-3 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg></button>
-                <button onclick="showTab('inventario')" id="btn-inventario" class="btn-side-inactive p-3 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></button>
-                <button onclick="showTab('clientes')" id="btn-clientes" class="btn-side-inactive p-3 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg></button>
-                <button onclick="showTab('reportes')" id="btn-reportes" class="btn-side-inactive p-3 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></button>
+                <button onclick="showTab('ventas')" id="btn-ventas" class="btn-side-active p-3 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                </button>
+                <button onclick="showTab('inventario')" id="btn-inventario" class="btn-side-inactive p-3 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                </button>
+                <button onclick="showTab('clientes')" id="btn-clientes" class="btn-side-inactive p-3 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                </button>
+                <button onclick="showTab('reportes')" id="btn-reportes" class="btn-side-inactive p-3 rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </button>
             </aside>
             <main class="flex-1 overflow-y-auto p-5 md:p-8 custom-scroll" id="main-content"></main>
         </div>
     </div>
 
-    <!-- Modales -->
+    <!-- Modal: Detalle de cierre -->
     <div id="closure-detail-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-[150] overflow-y-auto p-4">
         <div class="bg-white rounded-3xl shadow-2xl max-w-5xl w-full my-8 max-h-[90vh] flex flex-col">
             <div class="p-6 border-b flex justify-between items-center sticky top-0 bg-white rounded-t-3xl">
@@ -70,11 +86,120 @@
             <div class="p-6 overflow-y-auto flex-1 custom-scroll" id="closure-detail-content"></div>
         </div>
     </div>
-    <div id="edit-archived-sale-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-[160] overflow-y-auto p-4"><div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full my-8 max-h-[90vh] flex flex-col"><div class="p-6 border-b flex justify-between"><h3 class="text-2xl font-bold">✏️ Editar venta archivada</h3><button onclick="closeEditArchivedSaleModal()" class="text-2xl">&times;</button></div><div class="p-6 overflow-auto flex-1"><div class="space-y-4"><div><label>Cliente</label><input type="text" id="edit-archived-client" class="w-full p-3 bg-slate-50 rounded-xl"></div><div class="grid grid-cols-2 gap-3"><div><label>Vendedor</label><select id="edit-archived-seller" class="w-full p-3 bg-slate-50 rounded-xl"></select></div><div><label>Fecha</label><input type="date" id="edit-archived-date" class="w-full p-3 bg-slate-50 rounded-xl"></div></div><div><label>Método pago</label><select id="edit-archived-payment" class="w-full p-3 bg-slate-50 rounded-xl"><option value="efectivo">Efectivo</option><option value="fiado">Fiado</option></select></div></div><h4 class="font-bold mt-6 mb-3">Productos</h4><div id="edit-archived-items-container" class="space-y-3"></div><div class="flex gap-2 mt-2"><button onclick="addProductToArchivedEdit()" class="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded-xl font-bold">+ Agregar producto</button></div><div class="mt-4 p-4 bg-amber-50 rounded-xl"><div class="flex justify-between"><span class="font-bold">Total</span><span id="edit-archived-total" class="text-2xl font-bold">$0.00</span></div></div></div><div class="p-6 border-t flex gap-3 justify-end"><button onclick="closeEditArchivedSaleModal()" class="px-6 py-2 border rounded-xl">Cancelar</button><button onclick="saveEditedArchivedSale()" class="px-6 py-2 bg-amber-700 text-white rounded-xl">Guardar cambios</button></div></div></div>
-    <div id="edit-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-[120]"><div class="bg-white p-8 rounded-2xl max-w-md w-full"><h3 class="text-xl font-bold mb-4">✏️ Editar producto</h3><div class="space-y-3"><input type="text" id="edit-name" class="w-full p-3 bg-slate-100 rounded-xl" readonly disabled><input type="number" id="edit-price" step="0.01" placeholder="Precio venta" class="w-full p-3 bg-slate-50 rounded-xl"><input type="number" id="edit-cost" step="0.01" placeholder="Costo unitario" class="w-full p-3 bg-slate-50 rounded-xl"><div id="edit-stock-container"><input type="number" id="edit-stock" placeholder="Stock" class="w-full p-3 bg-slate-50 rounded-xl"></div><div class="flex gap-3 pt-4"><button onclick="closeEditModal()" class="flex-1 py-2 font-bold">Cancelar</button><button onclick="saveEditProduct()" class="flex-1 bg-amber-700 text-white py-2 rounded-xl">Guardar</button></div></div></div></div>
-    <div id="modal-container" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-[110]"><div class="bg-white p-8 rounded-2xl max-w-md w-full"><h3 class="text-xl font-bold mb-4">➕ Nuevo Producto simple</h3><div class="space-y-3"><input type="text" id="m-p-name" placeholder="Nombre" class="w-full p-3 bg-slate-50 rounded-xl"><input type="number" id="m-p-price" step="0.01" placeholder="Precio venta" class="w-full p-3 bg-slate-50 rounded-xl"><input type="number" id="m-p-cost" step="0.01" placeholder="Costo unitario" class="w-full p-3 bg-slate-50 rounded-xl"><input type="number" id="m-p-stock" placeholder="Stock inicial" class="w-full p-3 bg-slate-50 rounded-xl"><div class="flex gap-3 pt-4"><button onclick="closeModal()" class="flex-1 py-2 font-bold">Cancelar</button><button onclick="saveProduct()" class="flex-1 bg-amber-700 text-white py-2 rounded-xl">Guardar</button></div></div></div></div>
-    <div id="client-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-[130]"><div class="bg-white p-8 rounded-2xl max-w-md w-full"><h3 id="client-modal-title" class="text-xl font-bold mb-4">Nuevo Cliente</h3><div class="space-y-3"><input type="text" id="client-name" placeholder="Nombre completo" class="w-full p-3 bg-slate-50 rounded-xl"><input type="text" id="client-address" placeholder="Dirección" class="w-full p-3 bg-slate-50 rounded-xl"><input type="text" id="client-phone" placeholder="Teléfono" class="w-full p-3 bg-slate-50 rounded-xl"><div class="flex gap-3 pt-4"><button onclick="closeClientModal()" class="flex-1 py-2 font-bold">Cancelar</button><button onclick="saveClient()" class="flex-1 bg-amber-700 text-white py-2 rounded-xl">Guardar</button></div></div></div></div>
-    <div id="edit-sale-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-[140] overflow-y-auto p-4"><div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full my-8 max-h-[90vh] flex flex-col"><div class="p-6 border-b flex justify-between"><h3 class="text-2xl font-bold">✏️ Editar Venta actual</h3><button onclick="closeEditSaleModal()" class="text-2xl">&times;</button></div><div class="p-6 overflow-auto flex-1"><div class="space-y-4"><div><label>Cliente</label><input type="text" id="edit-sale-client" class="w-full p-3 bg-slate-50 rounded-xl"></div><div class="grid grid-cols-2 gap-3"><div><label>Vendedor</label><select id="edit-sale-seller" class="w-full p-3 bg-slate-50 rounded-xl"></select></div><div><label>Fecha</label><input type="date" id="edit-sale-date" class="w-full p-3 bg-slate-50 rounded-xl"></div></div><div><label>Método pago</label><select id="edit-sale-payment" class="w-full p-3 bg-slate-50 rounded-xl"><option value="efectivo">Efectivo</option><option value="fiado">Fiado</option></select></div></div><h4 class="font-bold mt-6 mb-3">Productos</h4><div id="edit-sale-items-container" class="space-y-3"></div><div class="flex gap-2 mt-2"><button onclick="addProductToEditSale()" class="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded-xl font-bold">+ Agregar producto</button></div><div class="mt-4 p-4 bg-amber-50 rounded-xl"><div class="flex justify-between"><span class="font-bold">Total</span><span id="edit-sale-total" class="text-2xl font-bold">$0.00</span></div></div></div><div class="p-6 border-t flex gap-3 justify-end"><button onclick="closeEditSaleModal()" class="px-6 py-2 border rounded-xl">Cancelar</button><button onclick="saveEditedSale()" class="px-6 py-2 bg-amber-700 text-white rounded-xl">Guardar cambios</button></div></div></div>
+
+    <!-- Modal: Editar venta archivada -->
+    <div id="edit-archived-sale-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-[160] overflow-y-auto p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full my-8 max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b flex justify-between">
+                <h3 class="text-2xl font-bold">✏️ Editar venta archivada</h3>
+                <button onclick="closeEditArchivedSaleModal()" class="text-2xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-auto flex-1">
+                <div class="space-y-4">
+                    <div><label>Cliente</label><input type="text" id="edit-archived-client" class="w-full p-3 bg-slate-50 rounded-xl"></div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div><label>Vendedor</label><select id="edit-archived-seller" class="w-full p-3 bg-slate-50 rounded-xl"></select></div>
+                        <div><label>Fecha</label><input type="date" id="edit-archived-date" class="w-full p-3 bg-slate-50 rounded-xl"></div>
+                    </div>
+                    <div><label>Método pago</label><select id="edit-archived-payment" class="w-full p-3 bg-slate-50 rounded-xl"><option value="efectivo">Efectivo</option><option value="fiado">Fiado</option></select></div>
+                </div>
+                <h4 class="font-bold mt-6 mb-3">Productos</h4>
+                <div id="edit-archived-items-container" class="space-y-3"></div>
+                <div class="flex gap-2 mt-2">
+                    <button onclick="addProductToArchivedEdit()" class="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded-xl font-bold">+ Agregar producto</button>
+                </div>
+                <div class="mt-4 p-4 bg-amber-50 rounded-xl">
+                    <div class="flex justify-between"><span class="font-bold">Total</span><span id="edit-archived-total" class="text-2xl font-bold">$0.00</span></div>
+                </div>
+            </div>
+            <div class="p-6 border-t flex gap-3 justify-end">
+                <button onclick="closeEditArchivedSaleModal()" class="px-6 py-2 border rounded-xl">Cancelar</button>
+                <button onclick="saveEditedArchivedSale()" class="px-6 py-2 bg-amber-700 text-white rounded-xl">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Editar producto (inventario) -->
+    <div id="edit-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-[120]">
+        <div class="bg-white p-8 rounded-2xl max-w-md w-full">
+            <h3 class="text-xl font-bold mb-4">✏️ Editar producto</h3>
+            <div class="space-y-3">
+                <input type="text" id="edit-name" class="w-full p-3 bg-slate-100 rounded-xl" readonly disabled>
+                <input type="number" id="edit-price" step="0.01" placeholder="Precio venta" class="w-full p-3 bg-slate-50 rounded-xl">
+                <input type="number" id="edit-cost" step="0.01" placeholder="Costo unitario" class="w-full p-3 bg-slate-50 rounded-xl">
+                <div id="edit-stock-container"><input type="number" id="edit-stock" placeholder="Stock" class="w-full p-3 bg-slate-50 rounded-xl"></div>
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeEditModal()" class="flex-1 py-2 font-bold">Cancelar</button>
+                    <button onclick="saveEditProduct()" class="flex-1 bg-amber-700 text-white py-2 rounded-xl">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Nuevo producto simple -->
+    <div id="modal-container" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-[110]">
+        <div class="bg-white p-8 rounded-2xl max-w-md w-full">
+            <h3 class="text-xl font-bold mb-4">➕ Nuevo Producto simple</h3>
+            <div class="space-y-3">
+                <input type="text" id="m-p-name" placeholder="Nombre" class="w-full p-3 bg-slate-50 rounded-xl">
+                <input type="number" id="m-p-price" step="0.01" placeholder="Precio venta" class="w-full p-3 bg-slate-50 rounded-xl">
+                <input type="number" id="m-p-cost" step="0.01" placeholder="Costo unitario" class="w-full p-3 bg-slate-50 rounded-xl">
+                <input type="number" id="m-p-stock" placeholder="Stock inicial" class="w-full p-3 bg-slate-50 rounded-xl">
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeModal()" class="flex-1 py-2 font-bold">Cancelar</button>
+                    <button onclick="saveProduct()" class="flex-1 bg-amber-700 text-white py-2 rounded-xl">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Cliente -->
+    <div id="client-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-[130]">
+        <div class="bg-white p-8 rounded-2xl max-w-md w-full">
+            <h3 id="client-modal-title" class="text-xl font-bold mb-4">Nuevo Cliente</h3>
+            <div class="space-y-3">
+                <input type="text" id="client-name" placeholder="Nombre completo" class="w-full p-3 bg-slate-50 rounded-xl">
+                <input type="text" id="client-address" placeholder="Dirección" class="w-full p-3 bg-slate-50 rounded-xl">
+                <input type="text" id="client-phone" placeholder="Teléfono" class="w-full p-3 bg-slate-50 rounded-xl">
+                <div class="flex gap-3 pt-4">
+                    <button onclick="closeClientModal()" class="flex-1 py-2 font-bold">Cancelar</button>
+                    <button onclick="saveClient()" class="flex-1 bg-amber-700 text-white py-2 rounded-xl">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Editar venta actual (FIX: agregado flex al abrir) -->
+    <div id="edit-sale-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-[140] overflow-y-auto p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full my-8 max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b flex justify-between">
+                <h3 class="text-2xl font-bold">✏️ Editar Venta actual</h3>
+                <button onclick="closeEditSaleModal()" class="text-2xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-auto flex-1">
+                <div class="space-y-4">
+                    <div><label>Cliente</label><input type="text" id="edit-sale-client" class="w-full p-3 bg-slate-50 rounded-xl"></div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div><label>Vendedor</label><select id="edit-sale-seller" class="w-full p-3 bg-slate-50 rounded-xl"></select></div>
+                        <div><label>Fecha</label><input type="date" id="edit-sale-date" class="w-full p-3 bg-slate-50 rounded-xl"></div>
+                    </div>
+                    <div><label>Método pago</label><select id="edit-sale-payment" class="w-full p-3 bg-slate-50 rounded-xl"><option value="efectivo">Efectivo</option><option value="fiado">Fiado</option></select></div>
+                </div>
+                <h4 class="font-bold mt-6 mb-3">Productos</h4>
+                <div id="edit-sale-items-container" class="space-y-3"></div>
+                <div class="flex gap-2 mt-2">
+                    <button onclick="addProductToEditSale()" class="text-sm bg-amber-100 text-amber-800 px-3 py-2 rounded-xl font-bold">+ Agregar producto</button>
+                </div>
+                <div class="mt-4 p-4 bg-amber-50 rounded-xl">
+                    <div class="flex justify-between"><span class="font-bold">Total</span><span id="edit-sale-total" class="text-2xl font-bold">$0.00</span></div>
+                </div>
+            </div>
+            <div class="p-6 border-t flex gap-3 justify-end">
+                <button onclick="closeEditSaleModal()" class="px-6 py-2 border rounded-xl">Cancelar</button>
+                <button onclick="saveEditedSale()" class="px-6 py-2 bg-amber-700 text-white rounded-xl">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ========== CONFIGURACIÓN DE FIREBASE ==========
@@ -92,9 +217,9 @@
         const auth = firebase.auth();
 
         const productsRef = database.ref('products');
-        const sellersRef = database.ref('sellers');
-        const clientsRef = database.ref('clients');
-        const salesRef = database.ref('sales');
+        const sellersRef  = database.ref('sellers');
+        const clientsRef  = database.ref('clients');
+        const salesRef    = database.ref('sales');
         const closuresRef = database.ref('closures');
 
         let products = [], sellers = [], clients = [], sales = [], closures = [];
@@ -103,6 +228,7 @@
         let editProductId = null, currentEditingSaleId = null, editSaleItems = [], editingClientId = null;
         let currentEditingClosureId = null, currentEditingArchivedSaleId = null, editArchivedItems = [];
 
+        // ========== UTILIDADES ==========
         function showToast(msg, bg = 'green') {
             const log = document.getElementById('save-log');
             const toast = document.createElement('div');
@@ -112,24 +238,25 @@
             setTimeout(() => toast.remove(), 2000);
         }
 
+        // ========== FIREBASE ==========
         async function loadDataFromFirebase() {
             showToast("Cargando datos...", "blue");
             const [prodSnap, sellSnap, cliSnap, salesSnap, closSnap] = await Promise.all([
                 productsRef.once('value'), sellersRef.once('value'), clientsRef.once('value'),
                 salesRef.once('value'), closuresRef.once('value')
             ]);
-            products = prodSnap.val() || [];
-            sellers = sellSnap.val() || ["ADMIN"];
-            clients = cliSnap.val() || [{ id: 1, name: "Consumidor final", address: "", phone: "", isDefault: true }];
-            sales = salesSnap.val() || [];
-            closures = closSnap.val() || [];
+            products  = prodSnap.val()  || [];
+            sellers   = sellSnap.val()  || ["ADMIN"];
+            clients   = cliSnap.val()   || [{ id: 1, name: "Consumidor final", address: "", phone: "", isDefault: true }];
+            sales     = salesSnap.val() || [];
+            closures  = closSnap.val()  || [];
             if (products.length === 0) {
                 products = [
-                    { id: 1001, name: "🥚 Huevo Mediano", price: 0.12, cost: 0.09, stock: 500, isBase: true },
-                    { id: 1002, name: "🥚 Huevo Grande", price: 0.1267, cost: 0.10, stock: 300, isBase: true },
-                    { id: 1003, name: "🍳 8 Huevos Medianos (Promo $1)", price: 1.00, cost: 0.72, stock: 0, isPromo: true, linkedProductId: 1001, linkedQty: 8 },
-                    { id: 1004, name: "📦 Cubeta 30 Huevos Medianos", price: 3.60, cost: 2.70, stock: 0, isPromo: true, linkedProductId: 1001, linkedQty: 30 },
-                    { id: 1005, name: "📦 Cubeta 30 Huevos Grandes", price: 3.80, cost: 3.00, stock: 0, isPromo: true, linkedProductId: 1002, linkedQty: 30 }
+                    { id: 1001, name: "🥚 Huevo Mediano",              price: 0.12,   cost: 0.09, stock: 500, isBase: true },
+                    { id: 1002, name: "🥚 Huevo Grande",               price: 0.1267, cost: 0.10, stock: 300, isBase: true },
+                    { id: 1003, name: "🍳 8 Huevos Medianos (Promo $1)",price: 1.00,   cost: 0.72, stock: 0, isPromo: true, linkedProductId: 1001, linkedQty: 8 },
+                    { id: 1004, name: "📦 Cubeta 30 Huevos Medianos",   price: 3.60,   cost: 2.70, stock: 0, isPromo: true, linkedProductId: 1001, linkedQty: 30 },
+                    { id: 1005, name: "📦 Cubeta 30 Huevos Grandes",    price: 3.80,   cost: 3.00, stock: 0, isPromo: true, linkedProductId: 1002, linkedQty: 30 }
                 ];
                 await syncAll();
             }
@@ -147,7 +274,7 @@
         }
 
         async function signIn() {
-            const email = document.getElementById('email-login').value;
+            const email    = document.getElementById('email-login').value;
             const password = document.getElementById('password-login').value;
             if (!email || !password) { alert("Ingresa correo y contraseña"); return; }
             try {
@@ -161,29 +288,65 @@
             }
         }
         function logout() { auth.signOut().then(() => location.reload()); }
-        function startClock() { setInterval(() => { const c = document.getElementById('clock'); if(c) c.innerText = new Date().toLocaleTimeString(); }, 1000); }
+        function startClock() {
+            setInterval(() => {
+                const c = document.getElementById('clock');
+                if (c) c.innerText = new Date().toLocaleTimeString();
+            }, 1000);
+        }
 
+        // ========== NAVEGACIÓN ==========
         function renderCurrentView() {
-            document.querySelectorAll('#btn-ventas, #btn-inventario, #btn-clientes, #btn-reportes').forEach(btn => btn.classList.remove('btn-side-active', 'bg-amber-100', 'text-amber-700'));
-            if (currentTab === 'ventas') { document.getElementById('btn-ventas').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700'); renderVentas(); }
+            document.querySelectorAll('#btn-ventas, #btn-inventario, #btn-clientes, #btn-reportes')
+                .forEach(btn => btn.classList.remove('btn-side-active', 'bg-amber-100', 'text-amber-700'));
+            if      (currentTab === 'ventas')     { document.getElementById('btn-ventas').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700');     renderVentas(); }
             else if (currentTab === 'inventario') { document.getElementById('btn-inventario').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700'); renderInventario(); }
-            else if (currentTab === 'clientes') { document.getElementById('btn-clientes').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700'); renderClientes(); }
-            else if (currentTab === 'reportes') { document.getElementById('btn-reportes').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700'); renderReportes(); }
+            else if (currentTab === 'clientes')   { document.getElementById('btn-clientes').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700');   renderClientes(); }
+            else if (currentTab === 'reportes')   { document.getElementById('btn-reportes').classList.add('btn-side-active', 'bg-amber-100', 'text-amber-700');   renderReportes(); }
         }
         window.showTab = function(tab) { currentTab = tab; renderCurrentView(); };
 
-        // ---------- VENTAS ----------
+        // ========== VENTAS ==========
         function renderVentas() {
             const html = `
                 <div class="grid lg:grid-cols-12 gap-5">
-                    <div class="lg:col-span-8"><div class="flex justify-between mb-3"><h3 class="text-xl font-bold">🥚 Productos (cubetas y promo)</h3><input type="text" id="search-prod" placeholder="Buscar..." class="px-3 py-2 rounded-xl border bg-white"></div><div id="productos-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div></div>
-                    <div class="lg:col-span-4"><div class="bg-white p-4 rounded-2xl shadow sticky top-4"><div><label class="text-xs font-bold">Cliente</label><select id="client-select" class="w-full p-2 bg-slate-50 rounded-lg mb-2"></select><button class="text-xs text-amber-600" onclick="openClientModal()">+ Nuevo</button></div>
-                    <div class="grid grid-cols-2 gap-2 mt-2"><div><label>Vendedor</label><select id="seller-select" class="w-full p-2 bg-slate-50 rounded-lg"></select></div><div><label>Fecha</label><input type="date" id="sale-date" class="w-full p-2 bg-slate-50 rounded-lg"></div></div>
-                    <div class="mt-2"><label>Pago</label><select id="payment-method" class="w-full p-2 bg-slate-50 rounded-lg"><option value="efectivo">Efectivo</option><option value="fiado">Fiado</option></select></div>
-                    <div class="border-t my-3"></div><div class="flex justify-between"><span class="font-bold">Carrito</span><button onclick="clearCart()" class="text-red-500 text-xs">Vaciar</button></div>
-                    <div id="cart-list" class="min-h-[200px] max-h-[300px] overflow-y-auto space-y-2 my-2"></div>
-                    <div class="flex justify-between font-bold text-lg"><span>Total</span><span id="cart-total">$0.00</span></div>
-                    <button onclick="processSale()" class="w-full mt-3 bg-amber-700 text-white font-bold py-3 rounded-xl">FINALIZAR VENTA</button></div></div>
+                    <div class="lg:col-span-8">
+                        <div class="flex justify-between mb-3">
+                            <h3 class="text-xl font-bold">🥚 Productos (cubetas y promo)</h3>
+                            <input type="text" id="search-prod" placeholder="Buscar..." class="px-3 py-2 rounded-xl border bg-white">
+                        </div>
+                        <div id="productos-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+                    </div>
+                    <div class="lg:col-span-4">
+                        <div class="bg-white p-4 rounded-2xl shadow sticky top-4">
+                            <div>
+                                <label class="text-xs font-bold">Cliente</label>
+                                <select id="client-select" class="w-full p-2 bg-slate-50 rounded-lg mb-2"></select>
+                                <button class="text-xs text-amber-600" onclick="openClientModal()">+ Nuevo</button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <div><label>Vendedor</label><select id="seller-select" class="w-full p-2 bg-slate-50 rounded-lg"></select></div>
+                                <div><label>Fecha</label><input type="date" id="sale-date" class="w-full p-2 bg-slate-50 rounded-lg"></div>
+                            </div>
+                            <div class="mt-2">
+                                <label>Pago</label>
+                                <select id="payment-method" class="w-full p-2 bg-slate-50 rounded-lg">
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="fiado">Fiado</option>
+                                </select>
+                            </div>
+                            <div class="border-t my-3"></div>
+                            <div class="flex justify-between">
+                                <span class="font-bold">Carrito</span>
+                                <button onclick="clearCart()" class="text-red-500 text-xs">Vaciar</button>
+                            </div>
+                            <div id="cart-list" class="min-h-[200px] max-h-[300px] overflow-y-auto space-y-2 my-2"></div>
+                            <div class="flex justify-between font-bold text-lg">
+                                <span>Total</span><span id="cart-total">$0.00</span>
+                            </div>
+                            <button onclick="processSale()" class="w-full mt-3 bg-amber-700 text-white font-bold py-3 rounded-xl">FINALIZAR VENTA</button>
+                        </div>
+                    </div>
                 </div>`;
             document.getElementById('main-content').innerHTML = html;
             renderProductGrid();
@@ -192,6 +355,7 @@
             document.getElementById('sale-date').valueAsDate = new Date();
             document.getElementById('search-prod').addEventListener('input', (e) => renderProductGrid(e.target.value));
         }
+
         function renderProductGrid(filter = '') {
             const grid = document.getElementById('productos-grid');
             if (!grid) return;
@@ -200,17 +364,20 @@
                 let stockInfo = '';
                 if (p.isPromo && p.linkedProductId) {
                     const linked = products.find(pr => pr.id === p.linkedProductId);
-                    if (linked) stockInfo = `stock base: ${linked.stock}`;
-                    else stockInfo = 'sin stock base';
+                    stockInfo = linked ? `stock base: ${linked.stock}` : 'sin stock base';
                 }
                 return `
                 <div class="bg-white p-3 rounded-xl shadow-sm border cursor-pointer hover:border-amber-400 ${p.isPromo && p.linkedQty === 30 ? 'tomato-card' : ''}" onclick="addToCart(${p.id})">
                     <div class="font-bold">${p.name}</div>
-                    <div class="flex justify-between mt-1"><span class="text-amber-700 font-bold">$${p.price.toFixed(2)}</span><span class="text-xs text-slate-400">${p.isPromo ? `usa ${p.linkedQty} unidades` : ''}</span></div>
+                    <div class="flex justify-between mt-1">
+                        <span class="text-amber-700 font-bold">$${p.price.toFixed(2)}</span>
+                        <span class="text-xs text-slate-400">${p.isPromo ? `usa ${p.linkedQty} unidades` : ''}</span>
+                    </div>
                     <div class="text-xs text-slate-500 mt-1">📦 ${stockInfo}</div>
-                </div>
-            `}).join('');
+                </div>`;
+            }).join('');
         }
+
         window.addToCart = function(id) {
             const prod = products.find(p => p.id === id);
             if (!prod) return;
@@ -225,27 +392,47 @@
                     if (linked && (existing.qty + 1) * prod.linkedQty > linked.stock) { alert("Stock base insuficiente"); return; }
                 }
                 existing.qty++;
-            } else cart.push({ id, name: prod.name, price: prod.price, qty: 1, isPromo: prod.isPromo, linkedProductId: prod.linkedProductId, linkedQty: prod.linkedQty });
+            } else {
+                cart.push({ id, name: prod.name, price: prod.price, qty: 1, isPromo: prod.isPromo, linkedProductId: prod.linkedProductId, linkedQty: prod.linkedQty });
+            }
             renderCart();
         };
+
         function renderCart() {
             const container = document.getElementById('cart-list');
             if (!container) return;
-            if (cart.length === 0) { container.innerHTML = '<div class="text-center text-slate-400 py-5">Carrito vacío</div>'; document.getElementById('cart-total').innerText = '$0.00'; return; }
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="text-center text-slate-400 py-5">Carrito vacío</div>';
+                document.getElementById('cart-total').innerText = '$0.00';
+                return;
+            }
             let total = 0;
             container.innerHTML = cart.map((item, idx) => {
                 total += item.price * item.qty;
-                return `<div class="flex justify-between bg-slate-50 p-2 rounded-lg"><div><span class="font-bold">${item.name}</span><span class="text-xs ml-2">x${item.qty}</span><div class="text-xs">$${item.price.toFixed(2)} c/u</div></div><div class="flex gap-1"><button onclick="updateQty(${idx},-1)" class="w-6 h-6 bg-white rounded">-</button><span class="w-6 text-center">${item.qty}</span><button onclick="updateQty(${idx},1)" class="w-6 h-6 bg-white rounded">+</button></div></div>`;
+                return `
+                <div class="flex justify-between bg-slate-50 p-2 rounded-lg">
+                    <div>
+                        <span class="font-bold">${item.name}</span><span class="text-xs ml-2">x${item.qty}</span>
+                        <div class="text-xs">$${item.price.toFixed(2)} c/u</div>
+                    </div>
+                    <div class="flex gap-1">
+                        <button onclick="updateQty(${idx},-1)" class="w-6 h-6 bg-white rounded">-</button>
+                        <span class="w-6 text-center">${item.qty}</span>
+                        <button onclick="updateQty(${idx},1)"  class="w-6 h-6 bg-white rounded">+</button>
+                    </div>
+                </div>`;
             }).join('');
             document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
         }
+
         window.updateQty = function(idx, delta) {
             const item = cart[idx];
             if (!item) return;
             const prod = products.find(p => p.id === item.id);
             let newQty = item.qty + delta;
-            if (newQty <= 0) cart.splice(idx, 1);
-            else {
+            if (newQty <= 0) {
+                cart.splice(idx, 1);
+            } else {
                 if (prod.isPromo && prod.linkedProductId) {
                     const linked = products.find(p => p.id === prod.linkedProductId);
                     if (linked && newQty * prod.linkedQty > linked.stock) { alert("Stock base insuficiente"); return; }
@@ -254,24 +441,32 @@
             }
             renderCart();
         };
+
         window.clearCart = () => { if (cart.length && confirm("Vaciar carrito?")) { cart = []; renderCart(); } };
+
+        // ====== FIX PRINCIPAL: processSale guarda itemsDetailObjects ======
         async function processSale() {
             if (cart.length === 0) return alert("Carrito vacío");
-            const seller = document.getElementById('seller-select').value;
-            const clientId = parseInt(document.getElementById('client-select').value);
-            const client = clients.find(c => c.id === clientId)?.name || "Consumidor final";
-            const date = document.getElementById('sale-date').value;
-            const payment = document.getElementById('payment-method').value;
+            const seller    = document.getElementById('seller-select').value;
+            const clientId  = parseInt(document.getElementById('client-select').value);
+            const client    = clients.find(c => c.id === clientId)?.name || "Consumidor final";
+            const date      = document.getElementById('sale-date').value;
+            const payment   = document.getElementById('payment-method').value;
             if (!date) return alert("Fecha requerida");
+
+            // Validar stock
             for (let item of cart) {
                 const prod = products.find(p => p.id === item.id);
                 if (!prod) return alert(`Producto ${item.name} no existe`);
                 if (prod.isPromo && prod.linkedProductId) {
                     const linked = products.find(p => p.id === prod.linkedProductId);
-                    if (!linked || linked.stock < item.qty * prod.linkedQty) return alert(`Stock base insuficiente para ${item.name}`);
+                    if (!linked || linked.stock < item.qty * prod.linkedQty)
+                        return alert(`Stock base insuficiente para ${item.name}`);
                 }
             }
-            const itemsDetail = [];
+
+            // Construir detalle y descontar stock
+            const itemsDetailObjects = [];
             let total = 0;
             for (let item of cart) {
                 const prod = products.find(p => p.id === item.id);
@@ -280,9 +475,31 @@
                     const linked = products.find(p => p.id === prod.linkedProductId);
                     if (linked) linked.stock -= item.qty * prod.linkedQty;
                 }
-                itemsDetail.push({ productId: item.id, qty: item.qty, name: item.name, price: item.price, cost: prod.cost });
+                // FIX: guardamos como itemsDetailObjects (antes se guardaba solo como itemsDetail)
+                itemsDetailObjects.push({
+                    productId: item.id,
+                    qty:       item.qty,
+                    name:      item.name,
+                    price:     item.price,
+                    cost:      prod.cost,
+                    isPromo:        prod.isPromo  || false,
+                    linkedProductId: prod.linkedProductId,
+                    linkedQty:       prod.linkedQty || 1
+                });
             }
-            const newSale = { id: Date.now(), date, client, seller, total, items: cart.map(i => `${i.qty}x ${i.name}`).join(", "), itemsDetail, paymentMethod: payment, paid: payment === 'efectivo' };
+
+            const newSale = {
+                id:            Date.now(),
+                date,
+                client,
+                seller,
+                total,
+                items:               itemsDetailObjects.map(i => `${i.qty}x ${i.name}`).join(", "),
+                itemsDetail:         itemsDetailObjects,   // compatibilidad hacia atrás
+                itemsDetailObjects:  itemsDetailObjects,   // FIX: campo requerido por editar/eliminar
+                paymentMethod: payment,
+                paid:          payment === 'efectivo'
+            };
             sales.unshift(newSale);
             cart = [];
             await syncAll();
@@ -291,6 +508,7 @@
             if (currentTab === 'reportes') renderReportes();
             alert("✅ Venta registrada");
         }
+
         function fillSelects() {
             const clientSel = document.getElementById('client-select');
             if (clientSel) clientSel.innerHTML = clients.map(c => `<option value="${c.id}">${c.name}${c.isDefault ? ' (Consumidor final)' : ''}</option>`).join('');
@@ -298,17 +516,50 @@
             if (sellerSel) sellerSel.innerHTML = sellers.map(s => `<option>${s}</option>`).join('');
         }
 
-        // ---------- INVENTARIO ORDENADO ----------
+        // ========== INVENTARIO ==========
         function renderInventario() {
             const html = `
-                <div class="max-w-5xl mx-auto"><div class="flex justify-between items-center mb-4"><h3 class="text-2xl font-bold">📋 Inventario (unidades, luego cubetas)</h3><button onclick="openProductModal()" class="bg-amber-700 text-white px-4 py-2 rounded-xl">+ Producto</button></div>
-                <div class="bg-white p-4 rounded-2xl shadow mb-6"><h4 class="font-bold">➕ Nueva categoría (unidad + cubeta 30)</h4><div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2"><input type="text" id="newCatName" placeholder="Nombre ej. Gigante" class="p-2 bg-slate-50 rounded"><input type="number" id="newCatPrice" placeholder="Precio unidad" class="p-2 bg-slate-50 rounded"><input type="number" id="newCatCost" placeholder="Costo unidad" class="p-2 bg-slate-50 rounded"><input type="number" id="newCatBox" placeholder="Precio cubeta 30" class="p-2 bg-slate-50 rounded"></div><button onclick="addNewCategory()" class="mt-2 bg-green-600 text-white px-4 py-1 rounded-lg text-sm">Crear categoría</button></div>
-                <div class="overflow-x-auto bg-white rounded-2xl shadow"><table class="w-full text-sm"><thead class="bg-amber-50"><tr><th class="p-3 text-left">Producto</th><th>Precio venta</th><th>Costo unitario</th><th>Ganancia x unidad</th><th>Stock / referencia</th><th></th></tr></thead><tbody id="inv-table"></tbody><tr></div>
-                <div class="mt-6 bg-white p-4 rounded-2xl"><h4 class="font-bold">👥 Vendedores</h4><div class="flex gap-2 my-2"><input type="text" id="new-seller" class="flex-1 p-2 bg-slate-50 rounded"><button onclick="addSeller()" class="bg-amber-700 text-white px-4 rounded">Añadir</button></div><div id="sellers-list" class="flex flex-wrap gap-2"></div></div></div>`;
+                <div class="max-w-5xl mx-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-bold">📋 Inventario (unidades, luego cubetas)</h3>
+                        <button onclick="openProductModal()" class="bg-amber-700 text-white px-4 py-2 rounded-xl">+ Producto</button>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl shadow mb-6">
+                        <h4 class="font-bold">➕ Nueva categoría (unidad + cubeta 30)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+                            <input type="text"   id="newCatName"  placeholder="Nombre ej. Gigante"  class="p-2 bg-slate-50 rounded">
+                            <input type="number" id="newCatPrice" placeholder="Precio unidad"       class="p-2 bg-slate-50 rounded">
+                            <input type="number" id="newCatCost"  placeholder="Costo unidad"        class="p-2 bg-slate-50 rounded">
+                            <input type="number" id="newCatBox"   placeholder="Precio cubeta 30"    class="p-2 bg-slate-50 rounded">
+                        </div>
+                        <button onclick="addNewCategory()" class="mt-2 bg-green-600 text-white px-4 py-1 rounded-lg text-sm">Crear categoría</button>
+                    </div>
+                    <div class="overflow-x-auto bg-white rounded-2xl shadow">
+                        <table class="w-full text-sm">
+                            <thead class="bg-amber-50">
+                                <tr>
+                                    <th class="p-3 text-left">Producto</th>
+                                    <th>Precio venta</th><th>Costo unitario</th>
+                                    <th>Ganancia x unidad</th><th>Stock / referencia</th><th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="inv-table"></tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6 bg-white p-4 rounded-2xl">
+                        <h4 class="font-bold">👥 Vendedores</h4>
+                        <div class="flex gap-2 my-2">
+                            <input type="text" id="new-seller" class="flex-1 p-2 bg-slate-50 rounded">
+                            <button onclick="addSeller()" class="bg-amber-700 text-white px-4 rounded">Añadir</button>
+                        </div>
+                        <div id="sellers-list" class="flex flex-wrap gap-2"></div>
+                    </div>
+                </div>`;
             document.getElementById('main-content').innerHTML = html;
             renderInvTable();
             renderSellersList();
         }
+
         function renderInvTable() {
             const tbody = document.getElementById('inv-table');
             if (!tbody) return;
@@ -328,23 +579,36 @@
                     }
                 }
                 const gananciaUnit = (p.price - (p.cost || 0)).toFixed(2);
-                return `<tr class="border-b"><td class="p-3">${p.name} ${extraInfo}</td><td class="p-3 text-center">$${p.price.toFixed(2)}</td><td class="p-3 text-center">$${(p.cost || 0).toFixed(2)}</td><td class="p-3 text-center text-green-600">$${gananciaUnit}</td><td class="p-3 text-center">${stockDisplay}</td><td class="p-3 text-right"><button onclick="editProduct(${p.id})" class="text-blue-600 text-xs mr-2">✏️</button><button onclick="deleteProduct(${p.id})" class="text-red-500 text-xs">🗑️</button></td></tr>`;
+                return `
+                <tr class="border-b">
+                    <td class="p-3">${p.name} ${extraInfo}</td>
+                    <td class="p-3 text-center">$${p.price.toFixed(2)}</td>
+                    <td class="p-3 text-center">$${(p.cost || 0).toFixed(2)}</td>
+                    <td class="p-3 text-center text-green-600">$${gananciaUnit}</td>
+                    <td class="p-3 text-center">${stockDisplay}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="editProduct(${p.id})" class="text-blue-600 text-xs mr-2">✏️</button>
+                        <button onclick="deleteProduct(${p.id})" class="text-red-500 text-xs">🗑️</button>
+                    </td>
+                </tr>`;
             }).join('');
         }
+
         window.addNewCategory = async function() {
-            const name = document.getElementById('newCatName').value.trim();
-            const price = parseFloat(document.getElementById('newCatPrice').value);
-            const cost = parseFloat(document.getElementById('newCatCost').value) || 0;
+            const name     = document.getElementById('newCatName').value.trim();
+            const price    = parseFloat(document.getElementById('newCatPrice').value);
+            const cost     = parseFloat(document.getElementById('newCatCost').value) || 0;
             const boxPrice = parseFloat(document.getElementById('newCatBox').value);
             if (!name || isNaN(price) || isNaN(boxPrice)) return alert("Complete todos los campos");
             const baseId = Date.now();
-            products.push({ id: baseId, name: `🥚 ${name} (unidad)`, price, cost, stock: 0, isBase: true });
-            products.push({ id: Date.now() + 1, name: `📦 Cubeta 30 ${name}`, price: boxPrice, cost: cost * 30, stock: 0, isPromo: true, linkedProductId: baseId, linkedQty: 30 });
+            products.push({ id: baseId,         name: `🥚 ${name} (unidad)`,    price, cost, stock: 0, isBase: true });
+            products.push({ id: Date.now() + 1, name: `📦 Cubeta 30 ${name}`,   price: boxPrice, cost: cost * 30, stock: 0, isPromo: true, linkedProductId: baseId, linkedQty: 30 });
             await syncAll();
             renderInvTable();
             renderProductGrid();
             showToast("Categoría agregada");
         };
+
         window.editProduct = async function(id) {
             const p = products.find(p => p.id === id);
             if (!p) return;
@@ -365,20 +629,28 @@
             renderProductGrid();
             showToast("Producto actualizado");
         };
+
         window.deleteProduct = async function(id) {
             if (!confirm("¿Eliminar producto?")) return;
             products = products.filter(p => p.id !== id);
-            cart = cart.filter(i => i.id !== id);
+            cart     = cart.filter(i => i.id !== id);
             await syncAll();
             renderInvTable();
             renderProductGrid();
             renderCart();
         };
+
         function renderSellersList() {
             const div = document.getElementById('sellers-list');
             if (!div) return;
-            div.innerHTML = sellers.map(s => `<div class="bg-slate-100 px-3 py-1 rounded-full flex items-center gap-2"><span>${s}</span><button onclick="removeSeller('${s}')" class="text-red-500 font-bold">×</button></div>`).join('');
+            div.innerHTML = sellers.map(s =>
+                `<div class="bg-slate-100 px-3 py-1 rounded-full flex items-center gap-2">
+                    <span>${s}</span>
+                    <button onclick="removeSeller('${s}')" class="text-red-500 font-bold">×</button>
+                </div>`
+            ).join('');
         }
+
         window.addSeller = async function() {
             const name = document.getElementById('new-seller').value.trim().toUpperCase();
             if (!name) return;
@@ -389,6 +661,7 @@
             fillSelects();
             document.getElementById('new-seller').value = '';
         };
+
         window.removeSeller = async function(name) {
             if (sellers.length > 1) {
                 sellers = sellers.filter(s => s !== name);
@@ -398,55 +671,75 @@
             } else alert("Al menos un vendedor");
         };
 
-        // ---------- CLIENTES MEJORADOS ----------
+        // ========== CLIENTES ==========
         function renderClientes() {
-            const html = `<div class="max-w-4xl mx-auto"><div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold">📇 Clientes</h3><button onclick="openClientModal()" class="bg-amber-700 text-white px-4 py-2 rounded-xl hover:bg-amber-800 transition">+ Nuevo Cliente</button></div>
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden"><table class="w-full"><thead class="bg-amber-100"><tr class="text-left text-sm font-semibold text-slate-700"><th class="p-4">Nombre</th><th class="p-4">Dirección</th><th class="p-4">Teléfono</th><th class="p-4 text-right">Acciones</th></tr></thead><tbody id="clients-table"></tbody></table></div></div>`;
+            const html = `
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold">📇 Clientes</h3>
+                        <button onclick="openClientModal()" class="bg-amber-700 text-white px-4 py-2 rounded-xl hover:bg-amber-800 transition">+ Nuevo Cliente</button>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                        <table class="w-full">
+                            <thead class="bg-amber-100">
+                                <tr class="text-left text-sm font-semibold text-slate-700">
+                                    <th class="p-4">Nombre</th><th class="p-4">Dirección</th>
+                                    <th class="p-4">Teléfono</th><th class="p-4 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clients-table"></tbody>
+                        </table>
+                    </div>
+                </div>`;
             document.getElementById('main-content').innerHTML = html;
             renderClientsTable();
         }
+
         function renderClientsTable() {
             const tbody = document.getElementById('clients-table');
             if (!tbody) return;
-            tbody.innerHTML = clients.filter(c => !c.isDefault).map(c => `
+            const filtered = clients.filter(c => !c.isDefault);
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-slate-400">No hay clientes. Haz clic en "+ Nuevo Cliente" para agregar.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = filtered.map(c => `
                 <tr class="border-b hover:bg-slate-50 transition">
                     <td class="p-4 font-medium">${c.name}</td>
                     <td class="p-4 text-slate-600">${c.address || '—'}</td>
                     <td class="p-4 text-slate-600">${c.phone || '—'}</td>
                     <td class="p-4 text-right">
-                        <button onclick="editClient(${c.id})" class="text-blue-600 hover:text-blue-800 mr-3 transition">✏️</button>
+                        <button onclick="editClient(${c.id})"   class="text-blue-600 hover:text-blue-800 mr-3 transition">✏️</button>
                         <button onclick="deleteClient(${c.id})" class="text-red-500 hover:text-red-700 transition">🗑️</button>
                     </td>
-                </tr>
-            `).join('');
-            if (clients.filter(c => !c.isDefault).length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-slate-400">No hay clientes registrados. Haz clic en "+ Nuevo Cliente" para agregar.</td></tr>';
-            }
+                </tr>`
+            ).join('');
         }
+
         window.openClientModal = function(id = null) {
             editingClientId = id;
             const c = id ? clients.find(c => c.id === id) : null;
-            document.getElementById('client-name').value = c?.name || '';
+            document.getElementById('client-name').value    = c?.name    || '';
             document.getElementById('client-address').value = c?.address || '';
-            document.getElementById('client-phone').value = c?.phone || '';
+            document.getElementById('client-phone').value   = c?.phone   || '';
             document.getElementById('client-modal-title').innerText = id ? "Editar Cliente" : "Nuevo Cliente";
             document.getElementById('client-modal').classList.remove('hidden');
             document.getElementById('client-modal').classList.add('flex');
         };
+
         function closeClientModal() {
             document.getElementById('client-modal').classList.add('hidden');
             editingClientId = null;
         }
+
         window.saveClient = async function() {
-            const name = document.getElementById('client-name').value.trim();
+            const name    = document.getElementById('client-name').value.trim();
             if (!name) return alert("El nombre es obligatorio");
             const address = document.getElementById('client-address').value;
-            const phone = document.getElementById('client-phone').value;
+            const phone   = document.getElementById('client-phone').value;
             if (editingClientId) {
                 const idx = clients.findIndex(c => c.id === editingClientId);
-                if (idx !== -1) {
-                    clients[idx] = { ...clients[idx], name, address, phone };
-                }
+                if (idx !== -1) clients[idx] = { ...clients[idx], name, address, phone };
             } else {
                 clients.push({ id: Date.now(), name, address, phone });
             }
@@ -456,7 +749,8 @@
             fillSelects();
             showToast(editingClientId ? "Cliente actualizado" : "Cliente agregado");
         };
-        window.editClient = (id) => openClientModal(id);
+
+        window.editClient   = (id) => openClientModal(id);
         window.deleteClient = async function(id) {
             if (!confirm("¿Eliminar este cliente?")) return;
             clients = clients.filter(c => c.id !== id);
@@ -466,51 +760,99 @@
             showToast("Cliente eliminado");
         };
 
-        // ---------- REPORTES Y FUNCIONES DE CIERRES (COMPLETAS) ----------
+        // ========== REPORTES ==========
         function renderReportes() {
             const totalSales = sales.reduce((a, s) => a + s.total, 0);
             let profit = 0;
-            sales.forEach(s => { if (s.itemsDetail) s.itemsDetail.forEach(i => { profit += (i.price - (i.cost || 0)) * i.qty; }); });
+            sales.forEach(s => {
+                const items = s.itemsDetailObjects || s.itemsDetail || [];
+                items.forEach(i => { profit += (i.price - (i.cost || 0)) * i.qty; });
+            });
             const sellerStats = {};
             sales.forEach(s => { sellerStats[s.seller] = (sellerStats[s.seller] || 0) + s.total; });
             const topSeller = Object.entries(sellerStats).sort((a, b) => b[1] - a[1])[0];
             const currentDebts = {};
             sales.forEach(s => { if (s.paymentMethod === 'fiado' && !s.paid) currentDebts[s.client] = (currentDebts[s.client] || 0) + s.total; });
-            
+
             let archivedDebtsHtml = '';
             closures.forEach(c => {
                 (c.archivedSales || []).forEach(sale => {
                     if (sale.paymentMethod === 'fiado' && !sale.paid) {
-                        archivedDebtsHtml += `<div class="flex justify-between items-center bg-amber-50 p-2 rounded-lg"><div><span class="font-bold">${sale.client}</span> <span class="text-xs">${sale.date}</span><div class="text-sm">$${sale.total.toFixed(2)}</div></div><button onclick="openClosureAndFocusSale(${c.id}, ${sale.id})" class="btn-cobrar">💰 Cobrar ahora</button></div>`;
+                        archivedDebtsHtml += `
+                        <div class="flex justify-between items-center bg-amber-50 p-2 rounded-lg">
+                            <div>
+                                <span class="font-bold">${sale.client}</span>
+                                <span class="text-xs"> ${sale.date}</span>
+                                <div class="text-sm">$${sale.total.toFixed(2)}</div>
+                            </div>
+                            <button onclick="openClosureAndFocusSale(${c.id}, ${sale.id})" class="btn-cobrar">💰 Cobrar ahora</button>
+                        </div>`;
                     }
                 });
             });
             if (!archivedDebtsHtml) archivedDebtsHtml = '<p class="text-slate-400">No hay deudas archivadas</p>';
-            
-            const closuresHtml = closures.slice().reverse().map(c => `<div class="bg-amber-50 p-3 rounded-xl flex justify-between items-center"><div><span class="font-bold">${c.date}</span><div class="text-sm">Ventas: ${c.ventasCount} | Total: $${c.totalVentas.toFixed(2)} | Ganancia: $${c.ganancia.toFixed(2)}</div></div><button onclick="showClosureDetail(${c.id})" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs">Ver detalle</button></div>`).join('');
-            
+
+            const closuresHtml = closures.slice().reverse().map(c =>
+                `<div class="bg-amber-50 p-3 rounded-xl flex justify-between items-center">
+                    <div>
+                        <span class="font-bold">${c.date}</span>
+                        <div class="text-sm">Ventas: ${c.ventasCount} | Total: $${c.totalVentas.toFixed(2)} | Ganancia: $${c.ganancia.toFixed(2)}</div>
+                    </div>
+                    <button onclick="showClosureDetail(${c.id})" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs">Ver detalle</button>
+                </div>`
+            ).join('');
+
             const salesHtml = sales.map(s => {
                 const isFiado = (s.paymentMethod === 'fiado' && !s.paid);
-                return `<div class="bg-white p-3 rounded-xl shadow-sm border flex flex-wrap justify-between items-center">
-                            <div><div class="text-xs text-slate-500">${s.date} | ${s.seller} | ${s.paymentMethod === 'efectivo' ? '💵 Efectivo' : '📝 Fiado'} | ${s.client}</div><div class="text-sm font-bold">${s.items}</div></div>
-                            <div class="text-right"><span class="text-xl font-black">$${s.total.toFixed(2)}</span>
-                            <div class="flex gap-2 mt-1 justify-end">${isFiado ? `<button onclick="markCurrentPaid(${s.id})" class="btn-cobrar">💰 Cobrar</button>` : ''}<button onclick="openEditSale(${s.id})" class="text-blue-600 text-xs">✏️</button><button onclick="deleteCurrentSale(${s.id})" class="text-red-500 text-xs">🗑️</button></div></div>
-                        </div>`;
+                return `
+                <div class="bg-white p-3 rounded-xl shadow-sm border flex flex-wrap justify-between items-center">
+                    <div>
+                        <div class="text-xs text-slate-500">${s.date} | ${s.seller} | ${s.paymentMethod === 'efectivo' ? '💵 Efectivo' : '📝 Fiado'} | ${s.client}</div>
+                        <div class="text-sm font-bold">${s.items}</div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xl font-black">$${s.total.toFixed(2)}</span>
+                        <div class="flex gap-2 mt-1 justify-end">
+                            ${isFiado ? `<button onclick="markCurrentPaid(${s.id})" class="btn-cobrar">💰 Cobrar</button>` : ''}
+                            <button onclick="openEditSale(${s.id})"      class="btn-editar">✏️ Editar</button>
+                            <button onclick="deleteCurrentSale(${s.id})" class="btn-eliminar">🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                </div>`;
             }).join('') || '<div class="text-center text-slate-400 py-5">Sin ventas en período actual</div>';
-            
+
             const html = `
                 <div class="space-y-6 max-w-6xl mx-auto">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3"><div class="bg-white p-3 rounded-xl"><p class="text-xs">Total recaudado</p><p class="text-2xl font-black">$${totalSales.toFixed(2)}</p></div><div class="bg-white p-3 rounded-xl"><p class="text-xs">Ganancia neta</p><p class="text-2xl font-black text-green-700">$${profit.toFixed(2)}</p></div><div class="bg-white p-3 rounded-xl"><p class="text-xs">Ventas realizadas</p><p class="text-2xl font-black">${sales.length}</p></div><div class="bg-white p-3 rounded-xl"><p class="text-xs">Mejor vendedor</p><p class="text-lg font-black">${topSeller ? `${topSeller[0]} ($${topSeller[1].toFixed(2)})` : '--'}</p></div></div>
-                    <div class="bg-white p-4 rounded-xl"><h4 class="font-bold">💰 Deudas actuales</h4><div>${Object.entries(currentDebts).map(([c, m]) => `<div class="flex justify-between bg-red-50 p-2 rounded"><span>${c}</span><span>$${m.toFixed(2)}</span></div>`).join('') || '<p class="text-slate-400">Sin deudas</p>'}</div></div>
-                    <div class="bg-white p-4 rounded-xl"><h4 class="font-bold">📋 Deudas de cierres anteriores</h4><div class="space-y-2">${archivedDebtsHtml}</div></div>
-                    <div class="flex justify-end"><button onclick="closeCashRegister()" class="bg-red-600 text-white px-5 py-2 rounded-xl font-bold">🔒 Cerrar Caja y Archivar</button></div>
-                    <div class="bg-white p-4 rounded-xl"><h4 class="font-bold">📦 Cierres anteriores</h4><div class="space-y-2">${closuresHtml || '<p>No hay cierres</p>'}</div></div>
-                    <div class="bg-white p-4 rounded-xl"><h4 class="font-bold">📜 Ventas actuales</h4><div class="space-y-3">${salesHtml}</div></div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="bg-white p-3 rounded-xl"><p class="text-xs">Total recaudado</p><p class="text-2xl font-black">$${totalSales.toFixed(2)}</p></div>
+                        <div class="bg-white p-3 rounded-xl"><p class="text-xs">Ganancia neta</p><p class="text-2xl font-black text-green-700">$${profit.toFixed(2)}</p></div>
+                        <div class="bg-white p-3 rounded-xl"><p class="text-xs">Ventas realizadas</p><p class="text-2xl font-black">${sales.length}</p></div>
+                        <div class="bg-white p-3 rounded-xl"><p class="text-xs">Mejor vendedor</p><p class="text-lg font-black">${topSeller ? `${topSeller[0]} ($${topSeller[1].toFixed(2)})` : '--'}</p></div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl">
+                        <h4 class="font-bold">💰 Deudas actuales</h4>
+                        <div>${Object.entries(currentDebts).map(([c, m]) => `<div class="flex justify-between bg-red-50 p-2 rounded"><span>${c}</span><span>$${m.toFixed(2)}</span></div>`).join('') || '<p class="text-slate-400">Sin deudas</p>'}</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl">
+                        <h4 class="font-bold">📋 Deudas de cierres anteriores</h4>
+                        <div class="space-y-2">${archivedDebtsHtml}</div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button onclick="closeCashRegister()" class="bg-red-600 text-white px-5 py-2 rounded-xl font-bold">🔒 Cerrar Caja y Archivar</button>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl">
+                        <h4 class="font-bold">📦 Cierres anteriores</h4>
+                        <div class="space-y-2">${closuresHtml || '<p>No hay cierres</p>'}</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl">
+                        <h4 class="font-bold">📜 Ventas actuales</h4>
+                        <div class="space-y-3">${salesHtml}</div>
+                    </div>
                 </div>`;
             document.getElementById('main-content').innerHTML = html;
         }
 
-        // ---------- FUNCIONES PARA CIERRES Y COBROS ----------
+        // ========== CIERRES ==========
         window.showClosureDetail = function(closureId, highlightSaleId = null) {
             const c = closures.find(c => c.id === closureId);
             if (!c) { alert("Cierre no encontrado"); return; }
@@ -522,18 +864,16 @@
                 document.getElementById('closure-detail-modal').classList.add('flex');
                 return;
             }
-            let totalGanancia = c.ganancia;
-            let totalVentas = c.totalVentas;
             const sellerStats = {};
             archived.forEach(s => { sellerStats[s.seller] = (sellerStats[s.seller] || 0) + s.total; });
             const topSeller = Object.entries(sellerStats).sort((a, b) => b[1] - a[1])[0];
             const debts = {};
             archived.forEach(s => { if (s.paymentMethod === 'fiado' && !s.paid) debts[s.client] = (debts[s.client] || 0) + s.total; });
-            
+
             let html = `
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-amber-50 p-4 rounded-xl mb-4">
-                    <div><p class="text-xs text-slate-500 uppercase">Total recaudado</p><p class="text-2xl font-black">$${totalVentas.toFixed(2)}</p></div>
-                    <div><p class="text-xs text-slate-500 uppercase">Ganancia neta</p><p class="text-2xl font-black text-green-700">$${totalGanancia.toFixed(2)}</p></div>
+                    <div><p class="text-xs text-slate-500 uppercase">Total recaudado</p><p class="text-2xl font-black">$${c.totalVentas.toFixed(2)}</p></div>
+                    <div><p class="text-xs text-slate-500 uppercase">Ganancia neta</p><p class="text-2xl font-black text-green-700">$${c.ganancia.toFixed(2)}</p></div>
                     <div><p class="text-xs text-slate-500 uppercase">Mejor vendedor</p><p class="text-lg font-black">${topSeller ? `${topSeller[0]} ($${topSeller[1].toFixed(2)})` : '--'}</p></div>
                 </div>
                 <div class="bg-white border rounded-xl p-4 mb-4">
@@ -541,20 +881,20 @@
                     <div id="closure-debtors-list" class="space-y-2"></div>
                 </div>
                 <h4 class="font-bold text-xl mt-4 mb-3">📋 Ventas del cierre (${archived.length} transacciones)</h4>
-                <div id="closure-sales-list" class="space-y-3 max-h-[400px] overflow-y-auto"></div>
-            `;
+                <div id="closure-sales-list" class="space-y-3 max-h-[400px] overflow-y-auto"></div>`;
             document.getElementById('closure-detail-content').innerHTML = html;
-            document.getElementById('closure-modal-title').innerText = `Cierre del ${c.date} - Total: $${totalVentas.toFixed(2)}`;
-            
+            document.getElementById('closure-modal-title').innerText = `Cierre del ${c.date} - Total: $${c.totalVentas.toFixed(2)}`;
+
             const debtContainer = document.getElementById('closure-debtors-list');
-            if (Object.keys(debts).length === 0) debtContainer.innerHTML = '<p class="text-slate-400">✅ No había deudas pendientes en este cierre</p>';
+            if (Object.keys(debts).length === 0)
+                debtContainer.innerHTML = '<p class="text-slate-400">✅ No había deudas pendientes en este cierre</p>';
             else {
                 debtContainer.innerHTML = '';
                 for (let [cliente, monto] of Object.entries(debts)) {
                     debtContainer.innerHTML += `<div class="flex justify-between bg-red-50 p-2 rounded-lg"><span>${cliente}</span><span class="font-bold">$${monto.toFixed(2)}</span></div>`;
                 }
             }
-            
+
             const salesContainer = document.getElementById('closure-sales-list');
             salesContainer.innerHTML = '';
             archived.forEach(sale => {
@@ -571,26 +911,20 @@
                             <p class="text-xl font-black">$${sale.total.toFixed(2)}</p>
                             <div class="flex gap-2 mt-1 justify-end">
                                 ${isFiado ? `<button onclick="collectArchivedDebt(${c.id}, ${sale.id})" class="btn-cobrar">💰 Cobrar</button>` : ''}
-                                <button onclick="editArchivedSale(${c.id}, ${sale.id})" class="btn-editar">✏️ Editar</button>
+                                <button onclick="editArchivedSale(${c.id}, ${sale.id})"   class="btn-editar">✏️ Editar</button>
                                 <button onclick="deleteArchivedSale(${c.id}, ${sale.id})" class="btn-eliminar">🗑️ Eliminar</button>
                             </div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
                 salesContainer.appendChild(div);
             });
             document.getElementById('closure-detail-modal').classList.remove('hidden');
             document.getElementById('closure-detail-modal').classList.add('flex');
         };
-        
-        window.openClosureAndFocusSale = function(closureId, saleId) {
-            showClosureDetail(closureId, saleId);
-        };
-        
-        window.closeClosureModal = function() {
-            document.getElementById('closure-detail-modal').classList.add('hidden');
-        };
-        
+
+        window.openClosureAndFocusSale = function(closureId, saleId) { showClosureDetail(closureId, saleId); };
+        window.closeClosureModal = function() { document.getElementById('closure-detail-modal').classList.add('hidden'); };
+
         window.collectArchivedDebt = async function(closureId, saleId) {
             const closure = closures.find(c => c.id === closureId);
             if (!closure) return;
@@ -601,31 +935,28 @@
                     sale.paymentMethod = 'efectivo';
                     await syncAll();
                     renderReportes();
-                    if (document.getElementById('closure-detail-modal').classList.contains('flex')) {
-                        showClosureDetail(closureId);
-                    }
+                    if (document.getElementById('closure-detail-modal').classList.contains('flex')) showClosureDetail(closureId);
                     showToast("✅ Cobro archivado registrado");
                 }
             }
         };
-        
-        // Editar venta archivada
+
+        // ========== EDITAR VENTA ARCHIVADA ==========
         window.editArchivedSale = function(closureId, saleId) {
             const closure = closures.find(c => c.id === closureId);
             if (!closure) return;
             const sale = closure.archivedSales?.find(s => s.id === saleId);
             if (!sale) return;
-            currentEditingClosureId = closureId;
+            currentEditingClosureId      = closureId;
             currentEditingArchivedSaleId = saleId;
-            editArchivedItems = sale.itemsDetailObjects ? sale.itemsDetailObjects.map(obj => ({ ...obj })) : [];
+            editArchivedItems = (sale.itemsDetailObjects || sale.itemsDetail || []).map(obj => ({ ...obj }));
             document.getElementById('edit-archived-client').value = sale.client;
-            document.getElementById('edit-archived-date').value = sale.date;
+            document.getElementById('edit-archived-date').value   = sale.date;
             const sellerSelect = document.getElementById('edit-archived-seller');
             sellerSelect.innerHTML = '';
             sellers.forEach(s => {
                 const opt = document.createElement('option');
-                opt.value = s;
-                opt.textContent = s;
+                opt.value = s; opt.textContent = s;
                 if (s === sale.seller) opt.selected = true;
                 sellerSelect.appendChild(opt);
             });
@@ -634,7 +965,7 @@
             document.getElementById('edit-archived-sale-modal').classList.remove('hidden');
             document.getElementById('edit-archived-sale-modal').classList.add('flex');
         };
-        
+
         function renderEditArchivedItems() {
             const container = document.getElementById('edit-archived-items-container');
             container.innerHTML = '';
@@ -643,48 +974,39 @@
                 total += item.price * item.qty;
                 const div = document.createElement('div');
                 div.className = "flex justify-between bg-slate-50 p-2 rounded-lg";
-                div.innerHTML = `<div><p class="font-bold">${item.name}</p><p class="text-xs">$${item.price.toFixed(2)} c/u</p></div><div class="flex gap-2"><input type="number" min="0" value="${item.qty}" onchange="updateEditArchivedQty(${idx}, this.value)" class="w-16 p-1 border rounded"><button onclick="removeEditArchivedItem(${idx})" class="text-red-500">×</button></div>`;
+                div.innerHTML = `
+                    <div><p class="font-bold">${item.name}</p><p class="text-xs">$${item.price.toFixed(2)} c/u</p></div>
+                    <div class="flex gap-2">
+                        <input type="number" min="0" value="${item.qty}" onchange="updateEditArchivedQty(${idx}, this.value)" class="w-16 p-1 border rounded">
+                        <button onclick="removeEditArchivedItem(${idx})" class="text-red-500">×</button>
+                    </div>`;
                 container.appendChild(div);
             });
             document.getElementById('edit-archived-total').innerText = `$${total.toFixed(2)}`;
         }
-        
+
         window.updateEditArchivedQty = function(idx, qty) {
             let q = parseInt(qty);
             if (isNaN(q) || q <= 0) editArchivedItems.splice(idx, 1);
             else editArchivedItems[idx].qty = q;
             renderEditArchivedItems();
         };
-        
-        window.removeEditArchivedItem = function(idx) {
-            editArchivedItems.splice(idx, 1);
-            renderEditArchivedItems();
-        };
-        
+
+        window.removeEditArchivedItem = function(idx) { editArchivedItems.splice(idx, 1); renderEditArchivedItems(); };
+
         window.addProductToArchivedEdit = function() {
             const productList = products.filter(p => p.isBase || p.isPromo);
             const names = productList.map(p => `${p.name} - $${p.price.toFixed(2)}`).join('\n');
             const selectedName = prompt("Escribe el nombre exacto del producto a agregar:\n" + names);
             if (!selectedName) return;
-            const selectedProduct = productList.find(p => p.name === selectedName);
-            if (!selectedProduct) { alert("Producto no encontrado"); return; }
-            const existing = editArchivedItems.find(i => i.productId === selectedProduct.id);
+            const sp = productList.find(p => p.name === selectedName);
+            if (!sp) { alert("Producto no encontrado"); return; }
+            const existing = editArchivedItems.find(i => i.productId === sp.id);
             if (existing) existing.qty++;
-            else {
-                editArchivedItems.push({
-                    productId: selectedProduct.id,
-                    name: selectedProduct.name,
-                    price: selectedProduct.price,
-                    qty: 1,
-                    isPromo: selectedProduct.isPromo || false,
-                    linkedProductId: selectedProduct.linkedProductId,
-                    linkedQty: selectedProduct.linkedQty || 1,
-                    cost: selectedProduct.cost
-                });
-            }
+            else editArchivedItems.push({ productId: sp.id, name: sp.name, price: sp.price, qty: 1, isPromo: sp.isPromo || false, linkedProductId: sp.linkedProductId, linkedQty: sp.linkedQty || 1, cost: sp.cost });
             renderEditArchivedItems();
         };
-        
+
         window.saveEditedArchivedSale = async function() {
             if (currentEditingClosureId === null || currentEditingArchivedSaleId === null) return;
             const closureIndex = closures.findIndex(c => c.id === currentEditingClosureId);
@@ -692,40 +1014,34 @@
             const closure = closures[closureIndex];
             const saleIndex = closure.archivedSales.findIndex(s => s.id === currentEditingArchivedSaleId);
             if (saleIndex === -1) return;
-            const newClient = document.getElementById('edit-archived-client').value.trim() || "Consumidor final";
-            const newSeller = document.getElementById('edit-archived-seller').value;
-            const newDate = document.getElementById('edit-archived-date').value;
+            const newClient  = document.getElementById('edit-archived-client').value.trim() || "Consumidor final";
+            const newSeller  = document.getElementById('edit-archived-seller').value;
+            const newDate    = document.getElementById('edit-archived-date').value;
             const newPayment = document.getElementById('edit-archived-payment').value;
-            const newTotal = editArchivedItems.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            const newTotal   = editArchivedItems.reduce((acc, i) => acc + (i.price * i.qty), 0);
             const newItemsStr = editArchivedItems.map(i => `${i.qty}x ${i.name}`).join(", ");
             closure.archivedSales[saleIndex] = {
                 ...closure.archivedSales[saleIndex],
-                client: newClient,
-                seller: newSeller,
-                date: newDate,
-                paymentMethod: newPayment,
-                paid: newPayment === 'efectivo',
-                total: newTotal,
-                items: newItemsStr,
-                itemsDetailObjects: editArchivedItems
+                client: newClient, seller: newSeller, date: newDate,
+                paymentMethod: newPayment, paid: newPayment === 'efectivo',
+                total: newTotal, items: newItemsStr,
+                itemsDetailObjects: editArchivedItems,
+                itemsDetail: editArchivedItems
             };
-            // Recalcular totales del closure
             let newTotalVentas = 0, newGanancia = 0;
             closure.archivedSales.forEach(s => {
                 newTotalVentas += s.total;
-                s.itemsDetailObjects?.forEach(i => { newGanancia += (i.price - (i.cost || 0)) * i.qty; });
+                (s.itemsDetailObjects || s.itemsDetail || []).forEach(i => { newGanancia += (i.price - (i.cost || 0)) * i.qty; });
             });
             closure.totalVentas = newTotalVentas;
-            closure.ganancia = newGanancia;
+            closure.ganancia    = newGanancia;
             await syncAll();
             closeEditArchivedSaleModal();
             renderReportes();
-            if (document.getElementById('closure-detail-modal').classList.contains('flex')) {
-                showClosureDetail(currentEditingClosureId);
-            }
+            if (document.getElementById('closure-detail-modal').classList.contains('flex')) showClosureDetail(currentEditingClosureId);
             showToast("✅ Venta archivada editada");
         };
-        
+
         window.deleteArchivedSale = async function(closureId, saleId) {
             if (!confirm("¿Eliminar esta venta archivada? El stock no se restaurará. ¿Continuar?")) return;
             const closureIndex = closures.findIndex(c => c.id === closureId);
@@ -735,59 +1051,55 @@
             let newTotalVentas = 0, newGanancia = 0;
             closure.archivedSales.forEach(s => {
                 newTotalVentas += s.total;
-                s.itemsDetailObjects?.forEach(i => { newGanancia += (i.price - (i.cost || 0)) * i.qty; });
+                (s.itemsDetailObjects || s.itemsDetail || []).forEach(i => { newGanancia += (i.price - (i.cost || 0)) * i.qty; });
             });
-            closure.totalVentas = newTotalVentas;
-            closure.ganancia = newGanancia;
-            closure.ventasCount = closure.archivedSales.length;
+            closure.totalVentas  = newTotalVentas;
+            closure.ganancia     = newGanancia;
+            closure.ventasCount  = closure.archivedSales.length;
             await syncAll();
             renderReportes();
-            if (document.getElementById('closure-detail-modal').classList.contains('flex')) {
-                showClosureDetail(closureId);
-            }
+            if (document.getElementById('closure-detail-modal').classList.contains('flex')) showClosureDetail(closureId);
             showToast("Venta archivada eliminada");
         };
-        
+
         function closeEditArchivedSaleModal() {
             document.getElementById('edit-archived-sale-modal').classList.add('hidden');
-            currentEditingClosureId = null;
-            currentEditingArchivedSaleId = null;
-            editArchivedItems = [];
+            currentEditingClosureId = null; currentEditingArchivedSaleId = null; editArchivedItems = [];
         }
-        
-        // Funciones para ventas actuales
+
+        // ========== VENTAS ACTUALES: COBRAR / EDITAR / ELIMINAR ==========
         window.markCurrentPaid = async function(saleId) {
             const sale = sales.find(s => s.id === saleId);
             if (sale && confirm(`Cobrar $${sale.total.toFixed(2)} a ${sale.client}?`)) {
-                sale.paid = true;
-                sale.paymentMethod = 'efectivo';
-                await syncAll();
-                renderReportes();
-                showToast("✅ Cobro registrado");
+                sale.paid = true; sale.paymentMethod = 'efectivo';
+                await syncAll(); renderReportes(); showToast("✅ Cobro registrado");
             }
         };
-        
+
+        // FIX: se agrega classList.add('flex') para que el modal sea visible
         window.openEditSale = function(saleId) {
             const sale = sales.find(s => s.id === saleId);
             if (!sale) return;
             currentEditingSaleId = saleId;
-            editSaleItems = sale.itemsDetailObjects.map(obj => ({ ...obj }));
+            // FIX: compatibilidad con ventas antiguas que solo tenían itemsDetail
+            editSaleItems = (sale.itemsDetailObjects || sale.itemsDetail || []).map(obj => ({ ...obj }));
             document.getElementById('edit-sale-client').value = sale.client;
-            document.getElementById('edit-sale-date').value = sale.date;
+            document.getElementById('edit-sale-date').value   = sale.date;
             const sellerSelect = document.getElementById('edit-sale-seller');
             sellerSelect.innerHTML = '';
             sellers.forEach(s => {
                 const opt = document.createElement('option');
-                opt.value = s;
-                opt.textContent = s;
+                opt.value = s; opt.textContent = s;
                 if (s === sale.seller) opt.selected = true;
                 sellerSelect.appendChild(opt);
             });
             document.getElementById('edit-sale-payment').value = sale.paymentMethod;
             renderEditSaleItems();
+            // FIX: faltaba agregar 'flex' para que el modal se muestre correctamente
             document.getElementById('edit-sale-modal').classList.remove('hidden');
+            document.getElementById('edit-sale-modal').classList.add('flex');
         };
-        
+
         function renderEditSaleItems() {
             const container = document.getElementById('edit-sale-items-container');
             container.innerHTML = '';
@@ -796,64 +1108,56 @@
                 total += item.price * item.qty;
                 const div = document.createElement('div');
                 div.className = "flex justify-between bg-slate-50 p-2 rounded-lg";
-                div.innerHTML = `<div><p class="font-bold">${item.name}</p><p class="text-xs">$${item.price.toFixed(2)} c/u</p></div><div class="flex gap-2"><input type="number" min="0" value="${item.qty}" onchange="updateEditQty(${idx}, this.value)" class="w-16 p-1 border rounded"><button onclick="removeEditItem(${idx})" class="text-red-500">×</button></div>`;
+                div.innerHTML = `
+                    <div><p class="font-bold">${item.name}</p><p class="text-xs">$${item.price.toFixed(2)} c/u</p></div>
+                    <div class="flex gap-2">
+                        <input type="number" min="0" value="${item.qty}" onchange="updateEditQty(${idx}, this.value)" class="w-16 p-1 border rounded">
+                        <button onclick="removeEditItem(${idx})" class="text-red-500">×</button>
+                    </div>`;
                 container.appendChild(div);
             });
             document.getElementById('edit-sale-total').innerText = `$${total.toFixed(2)}`;
         }
-        
+
         window.updateEditQty = function(idx, qty) {
             let q = parseInt(qty);
             if (isNaN(q) || q <= 0) editSaleItems.splice(idx, 1);
             else editSaleItems[idx].qty = q;
             renderEditSaleItems();
         };
-        
-        window.removeEditItem = function(idx) {
-            editSaleItems.splice(idx, 1);
-            renderEditSaleItems();
-        };
-        
+
+        window.removeEditItem = function(idx) { editSaleItems.splice(idx, 1); renderEditSaleItems(); };
+
         window.addProductToEditSale = function() {
             const productList = products.filter(p => p.isBase || p.isPromo);
             const names = productList.map(p => `${p.name} - $${p.price.toFixed(2)}`).join('\n');
             const selectedName = prompt("Escribe el nombre exacto del producto a agregar:\n" + names);
             if (!selectedName) return;
-            const selectedProduct = productList.find(p => p.name === selectedName);
-            if (!selectedProduct) { alert("Producto no encontrado"); return; }
-            const existing = editSaleItems.find(i => i.productId === selectedProduct.id);
+            const sp = productList.find(p => p.name === selectedName);
+            if (!sp) { alert("Producto no encontrado"); return; }
+            const existing = editSaleItems.find(i => i.productId === sp.id);
             if (existing) existing.qty++;
-            else {
-                editSaleItems.push({
-                    productId: selectedProduct.id,
-                    name: selectedProduct.name,
-                    price: selectedProduct.price,
-                    qty: 1,
-                    isPromo: selectedProduct.isPromo,
-                    linkedProductId: selectedProduct.linkedProductId,
-                    linkedQty: selectedProduct.linkedQty,
-                    cost: selectedProduct.cost
-                });
-            }
+            else editSaleItems.push({ productId: sp.id, name: sp.name, price: sp.price, qty: 1, isPromo: sp.isPromo, linkedProductId: sp.linkedProductId, linkedQty: sp.linkedQty, cost: sp.cost });
             renderEditSaleItems();
         };
-        
+
         window.saveEditedSale = async function() {
             if (currentEditingSaleId === null) return;
             const idx = sales.findIndex(s => s.id === currentEditingSaleId);
             if (idx === -1) return;
             const old = sales[idx];
             // Restaurar stock original
-            for (let det of old.itemsDetailObjects) {
+            for (let det of (old.itemsDetailObjects || old.itemsDetail || [])) {
                 const prod = products.find(p => p.id === det.productId);
                 if (!prod) continue;
-                if (prod.isBase) prod.stock += det.qty;
-                else if (prod.isPromo && prod.linkedProductId) {
+                if (prod.isBase) {
+                    prod.stock += det.qty;
+                } else if (prod.isPromo && prod.linkedProductId) {
                     const linked = products.find(p => p.id === prod.linkedProductId);
-                    if (linked) linked.stock += (det.qty * prod.linkedQty);
+                    if (linked) linked.stock += det.qty * (prod.linkedQty || det.linkedQty || 1);
                 }
             }
-            // Validar nuevo stock
+            // Validar y descontar nuevo stock
             for (let item of editSaleItems) {
                 const prod = products.find(p => p.id === item.productId);
                 if (!prod) return alert(`Producto ${item.name} no existe`);
@@ -862,51 +1166,55 @@
                     prod.stock -= item.qty;
                 } else if (prod.isPromo && prod.linkedProductId) {
                     const linked = products.find(p => p.id === prod.linkedProductId);
-                    const needed = item.qty * prod.linkedQty;
-                    if (linked.stock < needed) return alert(`Stock base insuficiente para ${prod.name}`);
+                    const needed = item.qty * (prod.linkedQty || item.linkedQty || 1);
+                    if (!linked || linked.stock < needed) return alert(`Stock base insuficiente para ${prod.name}`);
                     linked.stock -= needed;
                 }
             }
-            const newTotal = editSaleItems.reduce((a, i) => a + (i.price * i.qty), 0);
+            const newTotal    = editSaleItems.reduce((a, i) => a + (i.price * i.qty), 0);
             const newItemsStr = editSaleItems.map(i => `${i.qty}x ${i.name}`).join(", ");
-            const newPayment = document.getElementById('edit-sale-payment').value;
+            const newPayment  = document.getElementById('edit-sale-payment').value;
             sales[idx] = {
                 ...old,
-                items: newItemsStr,
-                itemsDetailObjects: editSaleItems,
-                total: newTotal,
-                client: document.getElementById('edit-sale-client').value,
-                seller: document.getElementById('edit-sale-seller').value,
-                date: document.getElementById('edit-sale-date').value,
-                paymentMethod: newPayment,
-                paid: (newPayment === 'efectivo')
+                items:               newItemsStr,
+                itemsDetailObjects:  editSaleItems,
+                itemsDetail:         editSaleItems,
+                total:               newTotal,
+                client:              document.getElementById('edit-sale-client').value,
+                seller:              document.getElementById('edit-sale-seller').value,
+                date:                document.getElementById('edit-sale-date').value,
+                paymentMethod:       newPayment,
+                paid:                newPayment === 'efectivo'
             };
             await syncAll();
             closeEditSaleModal();
             renderReportes();
             renderInvTable();
             renderProductGrid();
-            showToast("Venta actual editada");
+            showToast("✅ Venta editada correctamente");
         };
-        
+
         function closeEditSaleModal() {
+            document.getElementById('edit-sale-modal').classList.remove('flex');
             document.getElementById('edit-sale-modal').classList.add('hidden');
             currentEditingSaleId = null;
             editSaleItems = [];
         }
-        
+
+        // FIX: restaura stock correctamente usando itemsDetailObjects || itemsDetail
         window.deleteCurrentSale = async function(saleId) {
-            if (!confirm("Eliminar venta actual? Se restaurará el stock")) return;
+            if (!confirm("¿Eliminar venta actual? Se restaurará el stock.")) return;
             const idx = sales.findIndex(s => s.id === saleId);
             if (idx === -1) return;
             const sale = sales[idx];
-            for (let det of sale.itemsDetailObjects) {
+            for (let det of (sale.itemsDetailObjects || sale.itemsDetail || [])) {
                 const prod = products.find(p => p.id === det.productId);
                 if (!prod) continue;
-                if (prod.isBase) prod.stock += det.qty;
-                else if (prod.isPromo && prod.linkedProductId) {
+                if (prod.isBase) {
+                    prod.stock += det.qty;
+                } else if (prod.isPromo && prod.linkedProductId) {
                     const linked = products.find(p => p.id === prod.linkedProductId);
-                    if (linked) linked.stock += (det.qty * prod.linkedQty);
+                    if (linked) linked.stock += det.qty * (prod.linkedQty || det.linkedQty || 1);
                 }
             }
             sales.splice(idx, 1);
@@ -914,34 +1222,58 @@
             renderReportes();
             renderInvTable();
             renderProductGrid();
-            showToast("Venta eliminada y stock restaurado");
+            showToast("🗑️ Venta eliminada y stock restaurado");
         };
-        
+
         window.closeCashRegister = async function() {
             if (sales.length === 0) return alert("No hay ventas para archivar");
-            if (!confirm("Archivar período actual? Las ventas pasarán a cierres anteriores y se reiniciarán.")) return;
+            if (!confirm("¿Archivar período actual? Las ventas pasarán a cierres anteriores y se reiniciarán.")) return;
             const totalVentas = sales.reduce((a, s) => a + s.total, 0);
             let ganancia = 0;
-            sales.forEach(s => { s.itemsDetailObjects?.forEach(i => { ganancia += (i.price - (i.cost || 0)) * i.qty; }); });
+            sales.forEach(s => {
+                (s.itemsDetailObjects || s.itemsDetail || []).forEach(i => { ganancia += (i.price - (i.cost || 0)) * i.qty; });
+            });
             const archivedSales = JSON.parse(JSON.stringify(sales));
             closures.push({ id: Date.now(), date: new Date().toLocaleString(), totalVentas, ganancia, ventasCount: sales.length, archivedSales });
             sales = [];
             await syncAll();
             renderReportes();
             renderProductGrid();
-            showToast("Período archivado");
+            showToast("✅ Período archivado");
         };
-        
-        // Funciones auxiliares de edición de producto
-        window.openProductModal = () => { document.getElementById('modal-container').classList.remove('hidden'); document.getElementById('modal-container').classList.add('flex'); };
-        window.closeModal = () => { document.getElementById('modal-container').classList.add('hidden'); };
-        window.closeEditModal = () => { document.getElementById('edit-modal').classList.add('hidden'); editProductId = null; };
+
+        // ========== MODAL PRODUCTO ==========
+        window.openProductModal = () => {
+            document.getElementById('modal-container').classList.remove('hidden');
+            document.getElementById('modal-container').classList.add('flex');
+        };
+        window.closeModal = () => {
+            document.getElementById('modal-container').classList.remove('flex');
+            document.getElementById('modal-container').classList.add('hidden');
+        };
+        window.saveProduct = async function() {
+            const name  = document.getElementById('m-p-name').value.trim();
+            const price = parseFloat(document.getElementById('m-p-price').value);
+            const cost  = parseFloat(document.getElementById('m-p-cost').value) || 0;
+            const stock = parseInt(document.getElementById('m-p-stock').value) || 0;
+            if (!name || isNaN(price)) return alert("Nombre y precio son obligatorios");
+            products.push({ id: Date.now(), name, price, cost, stock, isBase: true });
+            await syncAll();
+            closeModal();
+            renderInvTable();
+            showToast("Producto agregado");
+        };
+        window.closeEditModal = () => {
+            document.getElementById('edit-modal').classList.remove('flex');
+            document.getElementById('edit-modal').classList.add('hidden');
+            editProductId = null;
+        };
         window.saveEditProduct = async function() {
             if (editProductId === null) return;
             const p = products.find(p => p.id === editProductId);
             if (!p) return;
             p.price = parseFloat(document.getElementById('edit-price').value);
-            p.cost = parseFloat(document.getElementById('edit-cost').value) || 0;
+            p.cost  = parseFloat(document.getElementById('edit-cost').value) || 0;
             if (p.isBase) p.stock = parseInt(document.getElementById('edit-stock').value) || 0;
             await syncAll();
             closeEditModal();
@@ -949,8 +1281,8 @@
             renderProductGrid();
             showToast("Producto actualizado");
         };
-        
-        // Carga inicial
+
+        // ========== CARGA INICIAL ==========
         loadDataFromFirebase();
     </script>
 </body>
